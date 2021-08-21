@@ -33,7 +33,7 @@ module.exports = {
     main: ['./index.tsx'],
   },
   output: {
-    filename: filename('js'),
+    filename: filename('bundle-[hash].js'),
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     assetModuleFilename: 'assets/[hash][ext]',
