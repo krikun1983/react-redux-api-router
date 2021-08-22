@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'react-uuid';
 import { TableProps } from '../../types';
 
 const Table = ({ dataApi, tableView }: TableProps): JSX.Element => {
@@ -20,9 +19,9 @@ const Table = ({ dataApi, tableView }: TableProps): JSX.Element => {
               </tr>
             </thead>
             <tbody className="table__body">
-              {dataApi?.results.map(({ name, status, species, episode, image }) => {
+              {dataApi?.results.map(({ id, name, status, species, episode, image }) => {
                 return (
-                  <tr key={uuid()}>
+                  <tr key={id}>
                     <td className="table__body_name">{name}</td>
                     <td className="table__body_status">{status}</td>
                     <td className="table__body_species">{species}</td>

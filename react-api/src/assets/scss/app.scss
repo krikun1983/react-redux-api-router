@@ -219,3 +219,19 @@
     }
   }
 }
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+
+  &__btn {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+  &__btn:nth-child(1) {
+    margin-right: 10px;
+  }
+}

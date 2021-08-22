@@ -1,18 +1,21 @@
 import React, { ChangeEvent, useState } from 'react';
-import { SetFormValuesProps } from '../../types';
+import { BASE_URL, PARAM_PAGE } from '../../constants/api';
+import getPageId from '../../services/getPageId';
+import { ApiItem, GetApiData, SetFormValuesProps } from '../../types';
+import getApiResource from '../../utils/network';
 
-const BASE_URL = 'https://rickandmortyapi.com/api/';
-const CHARACTERS = 'character'; // used to get all the characters
-const LOCATIONS = 'location'; // used to get all the locations
-const EPISODES = 'episode'; // used to get all the episodes
-
-const Form = ({ onSetDataApi, onSetTableView }: SetFormValuesProps): JSX.Element => {
+const Form = ({
+  onSetDataApi,
+  onSetTableView,
+  onSetPrevPage,
+  onSetNextPage,
+  onSetCurrentPage,
+  currentPage,
+  onGetResource,
+}: SetFormValuesProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [searchRadioValue, setSearchRadioValue] = useState<string>('character');
-  // const [prevPage, setPrevPage] = useState('');
-  // const [nextPage, setNextPage] = useState('');
-  // const [currentPage, setCurrentPage] = useState(1);
+  const [searchRadioValue, setSearchRadioValue] = useState<string>(ApiItem.CHARACTER);
 
   // Значение из строки поиска
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -29,21 +32,10 @@ const Form = ({ onSetDataApi, onSetTableView }: SetFormValuesProps): JSX.Element
     event.preventDefault();
     setIsLoading(true);
 
-    try {
-      const response = await fetch(`${BASE_URL}${searchRadioValue}`);
-      const body = await response.json();
+    await onGetResource(`${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}`);
 
-      console.log(body);
-
-      onSetDataApi(body);
-      onSetTableView(true);
-      setSearchValue('');
-    } catch (err) {
-      console.error(err);
-      onSetTableView(false);
-    } finally {
-      setIsLoading(false);
-    }
+    setSearchValue('');
+    setIsLoading(false);
   };
 
   return (
@@ -59,7 +51,7 @@ const Form = ({ onSetDataApi, onSetTableView }: SetFormValuesProps): JSX.Element
               type="radio"
               name="field"
               onChange={handleChangeRadio}
-              value={CHARACTERS}
+              value={ApiItem.CHARACTER}
               defaultChecked
             />
             <span className="service-radio-custom" />
@@ -72,7 +64,7 @@ const Form = ({ onSetDataApi, onSetTableView }: SetFormValuesProps): JSX.Element
               type="radio"
               name="field"
               onChange={handleChangeRadio}
-              value={LOCATIONS}
+              value={ApiItem.LOCATION}
             />
             <span className="service-radio-custom" />
           </label>
@@ -84,7 +76,7 @@ const Form = ({ onSetDataApi, onSetTableView }: SetFormValuesProps): JSX.Element
               type="radio"
               name="field"
               onChange={handleChangeRadio}
-              value={EPISODES}
+              value={ApiItem.EPISODE}
             />
             <span className="service-radio-custom" />
           </label>
