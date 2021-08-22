@@ -19,6 +19,7 @@ type Results = {
   air_date: string;
   characters: string[];
   episode: string;
+  gender: string;
 };
 
 export interface GetApiData {

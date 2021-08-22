@@ -9,7 +9,7 @@ const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Elemen
           <th>Name</th>
           <th>Status</th>
           <th>Species</th>
-          <th>Type</th>
+          <th>Gender</th>
           <th>Images</th>
         </tr>
       );
@@ -47,13 +47,13 @@ const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Elemen
             <thead className="table__head">{resultHeaderTable(searchRadioValue)}</thead>
             <tbody className="table__body">
               {searchRadioValue === ApiItem.CHARACTER ? (
-                dataApi?.results.map(({ id, name, status, species, type, image }) => {
+                dataApi?.results.map(({ id, name, status, species, gender, image }) => {
                   return (
                     <tr key={id}>
                       <td className="table__body_name">{name}</td>
                       <td className="table__body_status">{status}</td>
                       <td className="table__body_species">{species}</td>
-                      <td className="table__body_episode">{type}</td>
+                      <td className="table__body_episode">{gender}</td>
                       <td className="table__body_img">
                         <img src={image} alt="" />
                       </td>
