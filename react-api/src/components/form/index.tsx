@@ -19,6 +19,7 @@ const Form = ({
 }: SetFormValuesProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
+  const [urlSearch, setUrlSearch] = useState<string>(`${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}`);
 
   // Значение из строки поиска
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +40,11 @@ const Form = ({
     event.preventDefault();
     setIsLoading(true);
 
-    await onGetResource(`${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}`);
+    if (searchValue) {
+      await onGetResource(`${BASE_URL}${searchRadioValue}/?name=${searchValue.toLowerCase()}`);
+    } else {
+      await onGetResource(`${urlSearch}`);
+    }
 
     setSearchValue('');
     setIsLoading(false);
