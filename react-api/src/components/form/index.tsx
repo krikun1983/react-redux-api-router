@@ -1,11 +1,12 @@
-import React, { ChangeEvent, useState, useEffect } from 'react';
-
+import React, { ChangeEvent, useState } from 'react';
+import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import getPageId from '../../services/getPageId';
 import { ApiItem, GetApiData, SetFormValuesProps } from '../../types';
 import getApiResource from '../../utils/network';
 
 const Form = ({
+  dataApi,
   onSetDataApi,
   onSetTableView,
   onSetPrevPage,
@@ -29,6 +30,10 @@ const Form = ({
     const { value } = event.target;
     onSetSearchRadioValue(value);
   };
+  const handleChangeSelect = async (event: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target;
+    onSetCurrentPage(+value);
+  };
   // Загрузка страницы
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
@@ -38,6 +43,29 @@ const Form = ({
 
     setSearchValue('');
     setIsLoading(false);
+  };
+
+  const select = (): JSX.Element => {
+    const number = dataApi?.info.pages;
+    const array = [];
+    if (number) {
+      for (let i = 1; i <= number; i += 1) {
+        array.push(i);
+      }
+
+      return (
+        <>
+          {array.map((item: number) => {
+            return (
+              <option key={uuid()} value={item}>
+                {item}
+              </option>
+            );
+          })}
+        </>
+      );
+    }
+    return <></>;
   };
 
   return (
@@ -82,6 +110,13 @@ const Form = ({
             />
             <span className="service-radio-custom" />
           </label>
+        </fieldset>
+        <fieldset className="form__service">
+          <legend>Сhose a page and click search</legend>
+          <select onChange={handleChangeSelect}>
+            <option value="">{currentPage}</option>
+            {select()}
+          </select>
         </fieldset>
         <fieldset className="form__panel">
           <legend>Search</legend>

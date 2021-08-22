@@ -35,6 +35,7 @@ const Main = (): JSX.Element => {
   return (
     <main className="main">
       <Form
+        dataApi={dataApi}
         onSetDataApi={setDataApi}
         onSetTableView={setTableView}
         onSetPrevPage={setPrevPage}

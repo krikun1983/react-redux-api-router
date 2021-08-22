@@ -27,6 +27,7 @@ export interface GetApiData {
 }
 
 export type SetFormValuesProps = {
+  dataApi: GetApiData | null;
   onSetDataApi: Dispatch<SetStateAction<GetApiData | null>>;
   onSetTableView: Dispatch<SetStateAction<boolean>>;
   onSetPrevPage: Dispatch<SetStateAction<string | null>>;
