@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
+
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import getPageId from '../../services/getPageId';
 import { ApiItem, GetApiData, SetFormValuesProps } from '../../types';
@@ -12,10 +13,11 @@ const Form = ({
   onSetCurrentPage,
   currentPage,
   onGetResource,
+  onSetSearchRadioValue,
+  searchRadioValue,
 }: SetFormValuesProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
-  const [searchRadioValue, setSearchRadioValue] = useState<string>(ApiItem.CHARACTER);
 
   // Значение из строки поиска
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +27,7 @@ const Form = ({
   // значение из radio
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setSearchRadioValue(value);
+    onSetSearchRadioValue(value);
   };
   // Загрузка страницы
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {

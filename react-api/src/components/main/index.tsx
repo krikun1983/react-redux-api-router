@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import getPageId from '../../services/getPageId';
-import { GetApiData } from '../../types';
+import { ApiItem, GetApiData } from '../../types';
 import getApiResource from '../../utils/network';
 import Form from '../form';
 import Table from '../table';
@@ -9,6 +9,7 @@ import PageNavigation from './pages-navigation';
 const Main = (): JSX.Element => {
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
   const [tableView, setTableView] = useState<boolean>(false);
+  const [searchRadioValue, setSearchRadioValue] = useState<string>(ApiItem.CHARACTER);
 
   const [prevPage, setPrevPage] = useState<string | null>('');
   const [nextPage, setNextPage] = useState<string | null>('');
@@ -41,9 +42,11 @@ const Main = (): JSX.Element => {
         onSetCurrentPage={setCurrentPage}
         currentPage={currentPage}
         onGetResource={getResource}
+        onSetSearchRadioValue={setSearchRadioValue}
+        searchRadioValue={searchRadioValue}
       />
       <PageNavigation tableView={tableView} prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
-      <Table dataApi={dataApi} tableView={tableView} />
+      <Table dataApi={dataApi} tableView={tableView} searchRadioValue={searchRadioValue} />
     </main>
   );
 };

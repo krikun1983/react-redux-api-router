@@ -13,7 +13,12 @@ type Results = {
   image: string;
   status: string;
   species: string;
-  episode: string[];
+  type: string;
+  dimension: string;
+  created: string;
+  air_date: string;
+  characters: string[];
+  episode: string;
 };
 
 export interface GetApiData {
@@ -29,11 +34,14 @@ export type SetFormValuesProps = {
   onSetCurrentPage: Dispatch<SetStateAction<number>>;
   currentPage: number;
   onGetResource: (url: string) => Promise<void>;
+  onSetSearchRadioValue: Dispatch<SetStateAction<string>>;
+  searchRadioValue: string;
 };
 
 export type TableProps = {
   dataApi: GetApiData | null;
   tableView: boolean;
+  searchRadioValue: string;
 };
 
 export enum ApiItem {
