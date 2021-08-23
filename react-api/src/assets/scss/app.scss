@@ -37,6 +37,41 @@
       font-weight: normal;
     }
 
+    select {
+      height: 30px;
+      margin-left: 5px;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn_reset {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      padding-right: 8px;
+      padding-left: 8px;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+
+      @media screen and (min-width: 640px) {
+        &:hover {
+          color: $white;
+          background-color: $bg-form-hover;
+        }
+      }
+    }
+
+    &_sort {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      width: 100%;
+    }
+
     .service-radio-custom {
       position: relative;
       display: inline-block;

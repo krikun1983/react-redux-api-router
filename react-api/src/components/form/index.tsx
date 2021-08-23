@@ -149,35 +149,37 @@ const Form = ({
         {searchRadioValue === ApiItem.CHARACTER ? (
           <fieldset className="form__service">
             <legend>Sort by:</legend>
-            <label htmlFor="status">
-              Status
-              <select id="status" onChange={handleChangeSelectSortStatus} value={sortStatus}>
-                <option value="">Selected</option>
-                <option value="alive">alive</option>
-                <option value="dead">dead</option>
-                <option value="unknown">unknown</option>
-              </select>
-            </label>
-            <label htmlFor="gender">
-              Gender
-              <select id="gender" onChange={handleChangeSelectSortGender} value={sortGender}>
-                <option value="">Selected</option>
-                <option value="female">female</option>
-                <option value="male">male</option>
-                <option value="genderless">genderless</option>
-                <option value="unknown">unknown</option>
-              </select>
-            </label>
-            <button type="button" onClick={resetSort}>
-              resetSort
-            </button>
+            <div className="form__service_sort">
+              <label htmlFor="status">
+                Status
+                <select id="status" onChange={handleChangeSelectSortStatus} value={sortStatus}>
+                  <option value="">Selected</option>
+                  <option value="alive">alive</option>
+                  <option value="dead">dead</option>
+                  <option value="unknown">unknown</option>
+                </select>
+              </label>
+              <label htmlFor="gender">
+                Gender
+                <select id="gender" onChange={handleChangeSelectSortGender} value={sortGender}>
+                  <option value="">Selected</option>
+                  <option value="female">female</option>
+                  <option value="male">male</option>
+                  <option value="genderless">genderless</option>
+                  <option value="unknown">unknown</option>
+                </select>
+              </label>
+              <button className="btn_reset" type="button" onClick={resetSort}>
+                resetSort
+              </button>
+            </div>
           </fieldset>
         ) : (
           <></>
         )}
 
         <fieldset className="form__panel">
-          <legend>Search</legend>
+          <legend>Search Field Name</legend>
           <label className="form__panel_search" htmlFor="search">
             <input
               id="search"
