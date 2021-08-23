@@ -5,7 +5,9 @@ import { ApiItem, SetFormValuesProps } from '../../types';
 
 const Form = ({
   dataApi,
+  onSetDataApi,
   onSetCurrentPage,
+  onSetTableView,
   currentPage,
   onGetResource,
   onSetSearchRadioValue,
@@ -29,6 +31,8 @@ const Form = ({
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     onSetSearchRadioValue(value);
+    onSetDataApi(null);
+    onSetTableView(false);
   };
   // Выбор номера страницы
   const handleChangeSelect = async (event: ChangeEvent<HTMLSelectElement>) => {
