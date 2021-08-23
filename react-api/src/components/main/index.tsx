@@ -10,6 +10,7 @@ const Main = (): JSX.Element => {
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
   const [tableView, setTableView] = useState<boolean>(false);
   const [searchRadioValue, setSearchRadioValue] = useState<string>(ApiItem.CHARACTER);
+  const [searchError, setSearchError] = useState<boolean>(false);
 
   const [prevPage, setPrevPage] = useState<string | null>('');
   const [nextPage, setNextPage] = useState<string | null>('');
@@ -27,8 +28,10 @@ const Main = (): JSX.Element => {
       setCurrentPage(getPageId(getUrl));
 
       setTableView(true);
+      setSearchError(false);
     } else {
       setTableView(false);
+      setSearchError(true);
     }
   };
 
@@ -38,13 +41,12 @@ const Main = (): JSX.Element => {
         dataApi={dataApi}
         onSetDataApi={setDataApi}
         onSetTableView={setTableView}
-        onSetPrevPage={setPrevPage}
-        onSetNextPage={setNextPage}
         onSetCurrentPage={setCurrentPage}
         currentPage={currentPage}
         onGetResource={getResource}
         onSetSearchRadioValue={setSearchRadioValue}
         searchRadioValue={searchRadioValue}
+        searchError={searchError}
       />
       <PageNavigation tableView={tableView} prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
       <Table dataApi={dataApi} tableView={tableView} searchRadioValue={searchRadioValue} />

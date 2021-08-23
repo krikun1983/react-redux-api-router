@@ -31,13 +31,12 @@ export type SetFormValuesProps = {
   dataApi: GetApiData | null;
   onSetDataApi: Dispatch<SetStateAction<GetApiData | null>>;
   onSetTableView: Dispatch<SetStateAction<boolean>>;
-  onSetPrevPage: Dispatch<SetStateAction<string | null>>;
-  onSetNextPage: Dispatch<SetStateAction<string | null>>;
   onSetCurrentPage: Dispatch<SetStateAction<number>>;
   currentPage: number;
   onGetResource: (url: string) => Promise<void>;
   onSetSearchRadioValue: Dispatch<SetStateAction<string>>;
   searchRadioValue: string;
+  searchError: boolean;
 };
 
 export type TableProps = {

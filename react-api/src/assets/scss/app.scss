@@ -177,6 +177,13 @@
   }
 }
 
+.form-search-result {
+  margin-top: 5px;
+  color: $error;
+  font-weight: bold;
+  text-align: center;
+}
+
 .results {
   width: 100%;
   padding: 10px;

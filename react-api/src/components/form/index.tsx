@@ -12,6 +12,7 @@ const Form = ({
   onGetResource,
   onSetSearchRadioValue,
   searchRadioValue,
+  searchError,
 }: SetFormValuesProps): JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -53,7 +54,11 @@ const Form = ({
     event.preventDefault();
     setIsLoading(true);
 
-    if (searchValue) {
+    if (searchValue && sortStatus && sortGender) {
+      await onGetResource(
+        `${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}&status=${sortStatus}&gender=${sortGender}`,
+      );
+    } else if (searchValue) {
       await onGetResource(
         `${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}`,
       );
@@ -195,6 +200,7 @@ const Form = ({
             {isLoading ? 'Loading...' : 'Search'}
           </button>
         </fieldset>
+        {searchError ? <div className="form-search-result">Search word for name field not found!</div> : <></>}
       </form>
     </>
   );
