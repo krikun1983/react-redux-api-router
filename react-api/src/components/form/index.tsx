@@ -54,7 +54,9 @@ const Form = ({
     setIsLoading(true);
 
     if (searchValue) {
-      await onGetResource(`${BASE_URL}${searchRadioValue}/?name=${searchValue.toLowerCase()}`);
+      await onGetResource(
+        `${BASE_URL}${searchRadioValue}/${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}`,
+      );
     } else if (sortStatus && sortGender) {
       await onGetResource(
         `${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}&gender=${sortGender}`,
