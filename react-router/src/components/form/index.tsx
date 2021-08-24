@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
-import { ApiItem, SetFormValuesProps } from '../../types';
+import { ApiItem, SetFormValuesProps } from '../../types/form-api';
 
 const Form = ({
   dataApi,

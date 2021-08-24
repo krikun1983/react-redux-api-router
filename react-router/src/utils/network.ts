@@ -1,4 +1,4 @@
-import { GetApiData } from '../types';
+import { GetApiData } from '../types/form-api';
 
 const getApiResource = async (url: string): Promise<boolean | GetApiData> => {
   try {

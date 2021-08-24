@@ -1,0 +1,38 @@
+@import 'basic';
+@import 'variables';
+
+.heading {
+  margin: 20px 0;
+  color: $white;
+  text-align: center;
+}
+
+.nav-menu {
+  width: 100%;
+  max-width: 1024px;
+  margin: 0 auto 20px;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__link {
+    display: block;
+    min-width: 70px;
+    margin: 0 10px;
+    padding: 10px 20px;
+    color: $bg-form-hover;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-decoration: none;
+    border: 2px solid $bg-form;
+    border-radius: 5px;
+  }
+
+  &__link.active {
+    color: $white;
+    background-color: $bg-form;
+  }
+}

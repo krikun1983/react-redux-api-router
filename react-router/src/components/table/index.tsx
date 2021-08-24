@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApiItem, TableProps } from '../../types';
+import { ApiItem, TableProps } from '../../types/form-api';
 
 const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Element => {
   const resultHeaderTable = (value: string): JSX.Element => {
