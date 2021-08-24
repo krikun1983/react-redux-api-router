@@ -174,7 +174,7 @@ const Form = ({
                   <option value="unknown">unknown</option>
                 </select>
               </label>
-              <button className="btn_reset" type="button" onClick={resetSort}>
+              <button className="btn_reset" type="submit" onClick={resetSort}>
                 resetSort
               </button>
             </div>
