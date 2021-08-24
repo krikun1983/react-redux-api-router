@@ -1,0 +1,21 @@
+@import 'variables';
+
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  color: $bg-form-hover;
+  text-align: center;
+
+  &__heading {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__text {
+    width: 100%;
+    max-width: 300px;
+    font-weight: bold;
+  }
+}
