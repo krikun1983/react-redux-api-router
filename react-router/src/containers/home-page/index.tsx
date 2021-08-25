@@ -16,7 +16,7 @@ const HomePage = (): JSX.Element => {
   const [nextPage, setNextPage] = useState<string | null>('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  const getResource = async (getUrl: string) => {
+  const getResource = async (getUrl: string): Promise<void> => {
     const body = await getApiResource(getUrl);
     const bodyType = body as GetApiData;
 

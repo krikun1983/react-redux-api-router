@@ -19,33 +19,33 @@ const Form = ({
   const [sortStatus, setSortStatus] = useState<string>('');
   const [sortGender, setSortGender] = useState<string>('');
 
-  const resetSort = () => {
+  const resetSort = (): void => {
     setSortStatus('');
     setSortGender('');
   };
   // Значение из строки поиска
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setSearchValue(value);
   };
   // значение из radio
-  const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     onSetSearchRadioValue(value);
     onSetDataApi(null);
     onSetTableView(false);
   };
   // Выбор номера страницы
-  const handleChangeSelect = async (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeSelect = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
     const { value } = event.target;
     onSetCurrentPage(+value);
   };
   // Выбор сортировки
-  const handleChangeSelectSortStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeSelectSortStatus = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
     const { value } = event.target;
     setSortStatus(value);
   };
-  const handleChangeSelectSortGender = async (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeSelectSortGender = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
     const { value } = event.target;
     setSortGender(value);
   };

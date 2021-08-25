@@ -8,8 +8,8 @@ type NavigationProps = {
 };
 
 const PageNavigation = ({ tableView, prevPage, nextPage, onGetResource }: NavigationProps): JSX.Element => {
-  const handleChangePrev = () => onGetResource(prevPage as string);
-  const handleChangeNext = () => onGetResource(nextPage as string);
+  const handleChangePrev = (): Promise<void> => onGetResource(prevPage as string);
+  const handleChangeNext = (): Promise<void> => onGetResource(nextPage as string);
 
   return (
     <>
