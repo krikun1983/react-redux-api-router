@@ -23,9 +23,21 @@ const Main = (): JSX.Element => {
         />
         <Route
           key={uuid()}
-          path={`/details/${searchRadioValue}/:id`}
+          path={`/details/${ApiItem.CHARACTER}/:id`}
           exact
-          render={(): JSX.Element => <DetailsPage searchRadioValue={searchRadioValue} />}
+          render={(): JSX.Element => <DetailsPage searchRadioValue={ApiItem.CHARACTER} />}
+        />
+        <Route
+          key={uuid()}
+          path={`/details/${ApiItem.LOCATION}/:id`}
+          exact
+          render={(): JSX.Element => <DetailsPage searchRadioValue={ApiItem.LOCATION} />}
+        />
+        <Route
+          key={uuid()}
+          path={`/details/${ApiItem.EPISODE}/:id`}
+          exact
+          render={(): JSX.Element => <DetailsPage searchRadioValue={ApiItem.EPISODE} />}
         />
         {routesConfig.map((route: Routing): JSX.Element => {
           return <Route key={uuid()} path={route.path} exact={route.exact} component={route.component} />;

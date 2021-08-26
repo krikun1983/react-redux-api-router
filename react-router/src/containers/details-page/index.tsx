@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import { useRouteMatch } from 'react-router';
+import { useLocation, useRouteMatch } from 'react-router';
 import DetailsLinkBack from '../../components/details-page/details-link-back';
 import DetailsPhotoComponent from '../../components/details-page/details-photo';
 import DetailsInfoComponent from '../../components/details-page/details-info';
-import { API_CHARACTERS, API_EPISODES, API_LOCATIONS } from '../../constants/api';
+import { BASE_URL, DETAILS } from '../../constants/api';
 import { DetailsProps, MatchProps, Res } from '../../types/details';
 import { ApiItem, ResultsCharacter, ResultsEpisode, ResultsLocation } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 import planets from '../../assets/images/planets.jpg';
 import rick from '../../assets/images/rick.jpg';
+import changeLocation from '../../services/changeLocation';
 
 const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
+  const locations = useLocation();
+  const newLocation = changeLocation(locations.pathname);
   const [errorApi, setErrorApi] = useState(false);
   const [detailsInfo, setDetailsInfo] = useState<Res[] | null>(null);
   const [detailsTitle, setDetailsTitle] = useState<string>('');
@@ -24,13 +27,12 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
       const { id } = match.params;
       let response;
       if (searchRadioValue === ApiItem.CHARACTER) {
-        response = await getApiResource(`${API_CHARACTERS}/${id}/`);
+        response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
       } else if (searchRadioValue === ApiItem.LOCATION) {
-        response = await getApiResource(`${API_LOCATIONS}/${id}/`);
-      } else {
-        response = await getApiResource(`${API_EPISODES}/${id}/`);
+        response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
+      } else if (searchRadioValue === ApiItem.EPISODE) {
+        response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
       }
-      // console.log(response);
 
       if (response) {
         if (searchRadioValue === ApiItem.CHARACTER) {
