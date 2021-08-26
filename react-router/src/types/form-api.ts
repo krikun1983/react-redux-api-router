@@ -32,9 +32,15 @@ export type ResultsCharacter = {
   episode: string[];
   gender: string;
   type: string;
-  // dimension: string;
-  // air_date: string;
-  // characters: string[];
+};
+
+export type ResultsLocation = {
+  id: number;
+  name: string;
+  type: string;
+  dimension: string;
+  created: string;
+  residents: string[];
 };
 
 export interface GetApiData {

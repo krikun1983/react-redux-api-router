@@ -17,3 +17,8 @@ export type Res = {
   title: string;
   data: string;
 };
+
+export type DetailsInfoProps = {
+  detailsInfo: Res[];
+  searchRadioValue: string;
+};

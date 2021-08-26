@@ -1,6 +1,8 @@
-import { GetApiData, Results, ResultsCharacter } from '../types/form-api';
+import { GetApiData, Results, ResultsCharacter, ResultsLocation } from '../types/form-api';
 
-const getApiResource = async (url: string): Promise<boolean | GetApiData | Results | ResultsCharacter> => {
+const getApiResource = async (
+  url: string,
+): Promise<boolean | GetApiData | Results | ResultsCharacter | ResultsLocation> => {
   try {
     const response = await fetch(url);
     if (!response.ok) {

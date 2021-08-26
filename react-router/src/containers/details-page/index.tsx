@@ -6,8 +6,9 @@ import DetailsPhotoComponent from '../../components/details-page/details-photo';
 import DetailsInfoComponent from '../../components/details-page/details-info';
 import { API_CHARACTERS, API_EPISODES, API_LOCATIONS } from '../../constants/api';
 import { DetailsProps, MatchProps, Res } from '../../types/details';
-import { ApiItem, ResultsCharacter } from '../../types/form-api';
+import { ApiItem, ResultsCharacter, ResultsLocation } from '../../types/form-api';
 import getApiResource from '../../utils/network';
+import planets from '../../assets/images/planets.jpg';
 
 const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
   const [errorApi, setErrorApi] = useState(false);
@@ -42,9 +43,17 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
           ]);
           setDetailsTitle((response as ResultsCharacter).name);
           setDetailsPhoto((response as ResultsCharacter).image);
-
-          setErrorApi(errorApi);
+        } else if (searchRadioValue === ApiItem.LOCATION) {
+          setDetailsInfo([
+            { title: 'Type', data: (response as ResultsLocation).type },
+            { title: 'Dimension', data: (response as ResultsLocation).dimension },
+            { title: 'Created', data: (response as ResultsLocation).created },
+            { title: 'Residents', data: String((response as ResultsLocation).residents.length) },
+          ]);
+          setDetailsTitle((response as ResultsLocation).name);
+          setDetailsPhoto(planets);
         }
+        setErrorApi(errorApi);
       } else {
         setErrorApi(!errorApi);
       }
