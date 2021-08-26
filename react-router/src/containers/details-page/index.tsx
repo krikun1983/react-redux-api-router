@@ -6,9 +6,10 @@ import DetailsPhotoComponent from '../../components/details-page/details-photo';
 import DetailsInfoComponent from '../../components/details-page/details-info';
 import { API_CHARACTERS, API_EPISODES, API_LOCATIONS } from '../../constants/api';
 import { DetailsProps, MatchProps, Res } from '../../types/details';
-import { ApiItem, ResultsCharacter, ResultsLocation } from '../../types/form-api';
+import { ApiItem, ResultsCharacter, ResultsEpisode, ResultsLocation } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 import planets from '../../assets/images/planets.jpg';
+import rick from '../../assets/images/rick.jpg';
 
 const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
   const [errorApi, setErrorApi] = useState(false);
@@ -52,6 +53,15 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
           ]);
           setDetailsTitle((response as ResultsLocation).name);
           setDetailsPhoto(planets);
+        } else if (searchRadioValue === ApiItem.EPISODE) {
+          setDetailsInfo([
+            { title: 'Air_date', data: (response as ResultsEpisode).air_date },
+            { title: 'Episode', data: (response as ResultsEpisode).episode },
+            { title: 'Created', data: (response as ResultsEpisode).created },
+            { title: 'Characters', data: String((response as ResultsEpisode).characters.length) },
+          ]);
+          setDetailsTitle((response as ResultsEpisode).name);
+          setDetailsPhoto(rick);
         }
         setErrorApi(errorApi);
       } else {

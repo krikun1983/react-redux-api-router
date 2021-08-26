@@ -43,6 +43,15 @@ export type ResultsLocation = {
   residents: string[];
 };
 
+export type ResultsEpisode = {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  created: string;
+  characters: string[];
+};
+
 export interface GetApiData {
   info: Info;
   results: Results[];

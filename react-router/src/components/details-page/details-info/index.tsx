@@ -36,6 +36,21 @@ const DetailsInfoComponent = ({ detailsInfo, searchRadioValue }: DetailsInfoProp
         ) : (
           <></>
         )}
+        {searchRadioValue === ApiItem.EPISODE ? (
+          detailsInfo.map(({ title, data }) => {
+            return (
+              data && (
+                <li className="details__info__list__item" key={title}>
+                  <div className="details__info__list__item_title">
+                    <span>{title}:</span> {data}{' '}
+                  </div>
+                </li>
+              )
+            );
+          })
+        ) : (
+          <></>
+        )}
       </ul>
     </div>
   );
