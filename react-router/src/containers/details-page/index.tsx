@@ -4,7 +4,7 @@ import { useLocation, useRouteMatch } from 'react-router';
 import DetailsLinkBack from '../../components/details-page/details-link-back';
 import DetailsPhotoComponent from '../../components/details-page/details-photo';
 import DetailsInfoComponent from '../../components/details-page/details-info';
-import { BASE_URL, DETAILS } from '../../constants/api';
+import { BASE_URL } from '../../constants/api';
 import { DetailsProps, MatchProps, Res } from '../../types/details';
 import { ApiItem, ResultsCharacter, ResultsEpisode, ResultsLocation } from '../../types/form-api';
 import getApiResource from '../../utils/network';
