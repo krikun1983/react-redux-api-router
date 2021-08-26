@@ -1,0 +1,79 @@
+@import 'basic';
+@import 'variables';
+
+.table {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid $bg-form;
+  border-collapse: collapse;
+
+  &__heading {
+    margin: 10px;
+    color: $bg-form;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  &__head {
+    color: $white;
+    font-weight: bold;
+    text-align: center;
+    background-color: $bg-form;
+
+    & > tr {
+      border-bottom: 1px solid $white;
+    }
+
+    & > tr > th {
+      padding: 10px 0;
+    }
+  }
+
+  &__body {
+    & > tr {
+      border-bottom: 1px solid $white;
+    }
+
+    & > tr > td {
+      padding: 5px;
+      text-align: center;
+    }
+
+    &_name {
+      width: 100%;
+      max-width: 20%;
+      text-align: center;
+    }
+
+    &_status {
+      width: 100%;
+      max-width: 20%;
+    }
+
+    &_species {
+      width: 100%;
+      max-width: 20%;
+    }
+
+    &_date {
+      width: 100%;
+      max-width: 20%;
+    }
+
+    &_img {
+      width: 100%;
+      max-width: 20%;
+      img {
+        width: 100%;
+        max-width: 80px;
+        border-bottom: 10px solid $bg-form;
+      }
+    }
+
+    &_link {
+      color: $bg-body;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+
 import Form from '../../components/form';
 import PageNavigation from '../../components/main/pages-navigation';
 import Table from '../../components/table';
 import getPageId from '../../services/getPageId';
-import { ApiItem, GetApiData } from '../../types/form-api';
+import { HomeProps } from '../../types/details';
+import { GetApiData } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 
-const HomePage = (): JSX.Element => {
+const HomePage = ({ searchRadioValue, onSetSearchRadioValue }: HomeProps): JSX.Element => {
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
   const [tableView, setTableView] = useState<boolean>(false);
-  const [searchRadioValue, setSearchRadioValue] = useState<string>(ApiItem.CHARACTER);
+
   const [searchError, setSearchError] = useState<boolean>(false);
 
   const [prevPage, setPrevPage] = useState<string | null>('');
@@ -43,7 +45,7 @@ const HomePage = (): JSX.Element => {
         onSetCurrentPage={setCurrentPage}
         currentPage={currentPage}
         onGetResource={getResource}
-        onSetSearchRadioValue={setSearchRadioValue}
+        onSetSearchRadioValue={onSetSearchRadioValue}
         searchRadioValue={searchRadioValue}
         searchError={searchError}
       />

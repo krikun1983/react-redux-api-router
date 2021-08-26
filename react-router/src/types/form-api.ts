@@ -7,7 +7,7 @@ type Info = {
   prev: string | null;
 };
 
-type Results = {
+export type Results = {
   id: number;
   name: string;
   image: string;
@@ -20,6 +20,21 @@ type Results = {
   characters: string[];
   episode: string;
   gender: string;
+};
+
+export type ResultsCharacter = {
+  id: number;
+  name: string;
+  image: string;
+  status: string;
+  species: string;
+  created: string;
+  episode: string[];
+  gender: string;
+  type: string;
+  // dimension: string;
+  // air_date: string;
+  // characters: string[];
 };
 
 export interface GetApiData {

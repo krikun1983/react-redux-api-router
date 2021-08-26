@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ApiItem, TableProps } from '../../types/form-api';
 
 const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Element => {
@@ -50,12 +51,30 @@ const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Elemen
                 dataApi?.results.map(({ id, name, status, species, gender, image }) => {
                   return (
                     <tr key={id}>
-                      <td className="table__body_name">{name}</td>
-                      <td className="table__body_status">{status}</td>
-                      <td className="table__body_species">{species}</td>
-                      <td className="table__body_episode">{gender}</td>
+                      <td className="table__body_name">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {name}
+                        </Link>
+                      </td>
+                      <td className="table__body_status">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {status}
+                        </Link>
+                      </td>
+                      <td className="table__body_species">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {species}
+                        </Link>
+                      </td>
+                      <td className="table__body_episode">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {gender}
+                        </Link>
+                      </td>
                       <td className="table__body_img">
-                        <img src={image} alt="" />
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          <img src={image} alt={name} />
+                        </Link>
                       </td>
                     </tr>
                   );
@@ -67,10 +86,26 @@ const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Elemen
                 dataApi?.results.map(({ id, name, type, dimension, created }) => {
                   return (
                     <tr key={id}>
-                      <td className="table__body_name">{name}</td>
-                      <td className="table__body_status">{type}</td>
-                      <td className="table__body_species">{dimension}</td>
-                      <td className="table__body_img">{created}</td>
+                      <td className="table__body_name">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {name}
+                        </Link>
+                      </td>
+                      <td className="table__body_status">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {type}
+                        </Link>
+                      </td>
+                      <td className="table__body_species">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {dimension}
+                        </Link>
+                      </td>
+                      <td className="table__body_img">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {created}
+                        </Link>
+                      </td>
                     </tr>
                   );
                 })
@@ -81,10 +116,26 @@ const Table = ({ dataApi, tableView, searchRadioValue }: TableProps): JSX.Elemen
                 dataApi?.results.map(({ id, name, air_date, episode, created }) => {
                   return (
                     <tr key={id}>
-                      <td className="table__body_name">{name}</td>
-                      <td className="table__body_status">{air_date}</td>
-                      <td className="table__body_species">{episode}</td>
-                      <td className="table__body_img">{created}</td>
+                      <td className="table__body_name">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {name}
+                        </Link>
+                      </td>
+                      <td className="table__body_status">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {air_date}
+                        </Link>
+                      </td>
+                      <td className="table__body_species">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {episode}
+                        </Link>
+                      </td>
+                      <td className="table__body_img">
+                        <Link to={`details/${searchRadioValue}/${id}`} className="table__body_link">
+                          {created}
+                        </Link>
+                      </td>
                     </tr>
                   );
                 })

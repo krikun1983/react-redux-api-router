@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import { ApiItem, SetFormValuesProps } from '../../types/form-api';
@@ -23,6 +23,7 @@ const Form = ({
     setSortStatus('');
     setSortGender('');
   };
+
   // Значение из строки поиска
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
@@ -31,21 +32,23 @@ const Form = ({
   // значение из radio
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
-    onSetSearchRadioValue(value);
+
     onSetDataApi(null);
     onSetTableView(false);
+    onSetSearchRadioValue(value);
   };
+
   // Выбор номера страницы
-  const handleChangeSelect = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
+  const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     onSetCurrentPage(+value);
   };
   // Выбор сортировки
-  const handleChangeSelectSortStatus = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
+  const handleChangeSelectSortStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     setSortStatus(value);
   };
-  const handleChangeSelectSortGender = async (event: ChangeEvent<HTMLSelectElement>): Promise<void> => {
+  const handleChangeSelectSortGender = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     setSortGender(value);
   };
@@ -115,7 +118,7 @@ const Form = ({
               name="field"
               onChange={handleChangeRadio}
               value={ApiItem.CHARACTER}
-              defaultChecked
+              checked={ApiItem.CHARACTER === searchRadioValue}
             />
             <span className="service-radio-custom" />
           </label>
@@ -128,6 +131,7 @@ const Form = ({
               name="field"
               onChange={handleChangeRadio}
               value={ApiItem.LOCATION}
+              checked={ApiItem.LOCATION === searchRadioValue}
             />
             <span className="service-radio-custom" />
           </label>
@@ -140,6 +144,7 @@ const Form = ({
               name="field"
               onChange={handleChangeRadio}
               value={ApiItem.EPISODE}
+              checked={ApiItem.EPISODE === searchRadioValue}
             />
             <span className="service-radio-custom" />
           </label>
