@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
+import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { ApiItem, SetFormValuesProps } from '../../types/form-api';
 
 const Form = ({
   dataApi,
   onSetDataApi,
   onSetCurrentPage,
-  onSetTableView,
   currentPage,
   onGetResource,
   searchError,
@@ -37,8 +37,7 @@ const Form = ({
     const { value } = event.target;
 
     onSetDataApi(null);
-    onSetTableView(false);
-
+    dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
     dispatch({ type: value.toUpperCase() });
   };
 

@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
 import { ApiItem, TableProps } from '../../types/form-api';
 
-const Table = ({ dataApi, tableView }: TableProps): JSX.Element => {
+const Table = ({ dataApi }: TableProps): JSX.Element => {
   const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
+  const { isSearchResultsTableView } = useTypeSelector(state => state.isSearchResultsTableView);
 
   const resultHeaderTable = (value: string): JSX.Element => {
     if (value === ApiItem.CHARACTER) {
@@ -43,7 +44,7 @@ const Table = ({ dataApi, tableView }: TableProps): JSX.Element => {
 
   return (
     <>
-      {tableView ? (
+      {isSearchResultsTableView ? (
         <div className="results">
           <div className="results_btns" />
           <table className="table">

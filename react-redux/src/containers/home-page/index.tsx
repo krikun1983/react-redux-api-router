@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Form from '../../components/form';
 import PageNavigation from '../../components/main/pages-navigation';
 import Table from '../../components/table';
 import getPageId from '../../services/getPageId';
+import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { GetApiData } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 
 const HomePage = (): JSX.Element => {
+  const dispatch = useDispatch();
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
-  const [tableView, setTableView] = useState<boolean>(false);
 
   const [searchError, setSearchError] = useState<boolean>(false);
 
@@ -27,10 +29,10 @@ const HomePage = (): JSX.Element => {
       setNextPage((bodyType as GetApiData).info.next);
       setCurrentPage(getPageId(getUrl));
 
-      setTableView(true);
+      dispatch({ type: SearchResultsTableViewActionTypes.SHOW });
       setSearchError(false);
     } else {
-      setTableView(false);
+      dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
       setSearchError(true);
     }
   };
@@ -40,14 +42,13 @@ const HomePage = (): JSX.Element => {
       <Form
         dataApi={dataApi}
         onSetDataApi={setDataApi}
-        onSetTableView={setTableView}
         onSetCurrentPage={setCurrentPage}
         currentPage={currentPage}
         onGetResource={getResource}
         searchError={searchError}
       />
-      <PageNavigation tableView={tableView} prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
-      <Table dataApi={dataApi} tableView={tableView} />
+      <PageNavigation prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
+      <Table dataApi={dataApi} />
     </>
   );
 };

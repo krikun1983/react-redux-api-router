@@ -60,7 +60,6 @@ export interface GetApiData {
 export type SetFormValuesProps = {
   dataApi: GetApiData | null;
   onSetDataApi: Dispatch<SetStateAction<GetApiData | null>>;
-  onSetTableView: Dispatch<SetStateAction<boolean>>;
   onSetCurrentPage: Dispatch<SetStateAction<number>>;
   currentPage: number;
   onGetResource: (url: string) => Promise<void>;
@@ -69,7 +68,6 @@ export type SetFormValuesProps = {
 
 export type TableProps = {
   dataApi: GetApiData | null;
-  tableView: boolean;
 };
 
 export enum ApiItem {
