@@ -2,11 +2,11 @@ import React from 'react';
 import { DetailsInfoProps } from '../../../types/details';
 import { ApiItem } from '../../../types/form-api';
 
-const DetailsInfoComponent = ({ detailsInfo, searchRadioValue }: DetailsInfoProps): JSX.Element => {
+const DetailsInfoComponent = ({ detailsInfo, pathDetailsPage }: DetailsInfoProps): JSX.Element => {
   return (
     <div className="details__container_info">
       <ul className="details__info__list">
-        {searchRadioValue === ApiItem.CHARACTER ? (
+        {pathDetailsPage === ApiItem.CHARACTER ? (
           detailsInfo.map(({ title, data }) => {
             return (
               data && (
@@ -21,7 +21,7 @@ const DetailsInfoComponent = ({ detailsInfo, searchRadioValue }: DetailsInfoProp
         ) : (
           <></>
         )}
-        {searchRadioValue === ApiItem.LOCATION ? (
+        {pathDetailsPage === ApiItem.LOCATION ? (
           detailsInfo.map(({ title, data }) => {
             return (
               data && (
@@ -36,7 +36,7 @@ const DetailsInfoComponent = ({ detailsInfo, searchRadioValue }: DetailsInfoProp
         ) : (
           <></>
         )}
-        {searchRadioValue === ApiItem.EPISODE ? (
+        {pathDetailsPage === ApiItem.EPISODE ? (
           detailsInfo.map(({ title, data }) => {
             return (
               data && (

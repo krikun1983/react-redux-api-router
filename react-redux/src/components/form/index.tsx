@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
+import useTypeSelector from '../../store/hooks/useTypeSelector';
 import { ApiItem, SetFormValuesProps } from '../../types/form-api';
 
 const Form = ({
@@ -10,10 +12,11 @@ const Form = ({
   onSetTableView,
   currentPage,
   onGetResource,
-  onSetSearchRadioValue,
-  searchRadioValue,
   searchError,
 }: SetFormValuesProps): JSX.Element => {
+  const dispatch = useDispatch();
+  const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const [sortStatus, setSortStatus] = useState<string>('');
@@ -35,7 +38,8 @@ const Form = ({
 
     onSetDataApi(null);
     onSetTableView(false);
-    onSetSearchRadioValue(value);
+
+    dispatch({ type: value.toUpperCase() });
   };
 
   // Выбор номера страницы
@@ -59,22 +63,22 @@ const Form = ({
 
     if (searchValue && sortStatus && sortGender) {
       await onGetResource(
-        `${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}&status=${sortStatus}&gender=${sortGender}`,
+        `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}&status=${sortStatus}&gender=${sortGender}`,
       );
     } else if (searchValue) {
       await onGetResource(
-        `${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}`,
+        `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}`,
       );
     } else if (sortStatus && sortGender) {
       await onGetResource(
-        `${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}&gender=${sortGender}`,
+        `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}&gender=${sortGender}`,
       );
     } else if (sortStatus) {
-      await onGetResource(`${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}`);
+      await onGetResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}`);
     } else if (sortGender) {
-      await onGetResource(`${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}&gender=${sortGender}`);
+      await onGetResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&gender=${sortGender}`);
     } else {
-      await onGetResource(`${BASE_URL}${searchRadioValue}${PARAM_PAGE}${currentPage}`);
+      await onGetResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}`);
     }
 
     setSearchValue('');
@@ -118,7 +122,7 @@ const Form = ({
               name="field"
               onChange={handleChangeRadio}
               value={ApiItem.CHARACTER}
-              checked={ApiItem.CHARACTER === searchRadioValue}
+              checked={ApiItem.CHARACTER === searchCategoryRadioValue}
             />
             <span className="service-radio-custom" />
           </label>
@@ -131,7 +135,7 @@ const Form = ({
               name="field"
               onChange={handleChangeRadio}
               value={ApiItem.LOCATION}
-              checked={ApiItem.LOCATION === searchRadioValue}
+              checked={ApiItem.LOCATION === searchCategoryRadioValue}
             />
             <span className="service-radio-custom" />
           </label>
@@ -144,7 +148,7 @@ const Form = ({
               name="field"
               onChange={handleChangeRadio}
               value={ApiItem.EPISODE}
-              checked={ApiItem.EPISODE === searchRadioValue}
+              checked={ApiItem.EPISODE === searchCategoryRadioValue}
             />
             <span className="service-radio-custom" />
           </label>
@@ -156,7 +160,7 @@ const Form = ({
             {select()}
           </select>
         </fieldset>
-        {searchRadioValue === ApiItem.CHARACTER ? (
+        {searchCategoryRadioValue === ApiItem.CHARACTER ? (
           <fieldset className="form__service">
             <legend>Sort by:</legend>
             <div className="form__service_sort">

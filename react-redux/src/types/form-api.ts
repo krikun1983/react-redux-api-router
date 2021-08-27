@@ -64,15 +64,12 @@ export type SetFormValuesProps = {
   onSetCurrentPage: Dispatch<SetStateAction<number>>;
   currentPage: number;
   onGetResource: (url: string) => Promise<void>;
-  onSetSearchRadioValue: Dispatch<SetStateAction<string>>;
-  searchRadioValue: string;
   searchError: boolean;
 };
 
 export type TableProps = {
   dataApi: GetApiData | null;
   tableView: boolean;
-  searchRadioValue: string;
 };
 
 export enum ApiItem {

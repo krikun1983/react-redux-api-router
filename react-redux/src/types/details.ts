@@ -1,16 +1,9 @@
-import { Dispatch, SetStateAction } from 'react';
-
 export type MatchProps = {
   id: string;
 };
 
-export type HomeProps = {
-  searchRadioValue: string;
-  onSetSearchRadioValue: Dispatch<SetStateAction<string>>;
-};
-
 export type DetailsProps = {
-  searchRadioValue: string;
+  pathDetailsPage: string;
 };
 
 export type Res = {
@@ -20,5 +13,5 @@ export type Res = {
 
 export type DetailsInfoProps = {
   detailsInfo: Res[];
-  searchRadioValue: string;
+  pathDetailsPage: string;
 };

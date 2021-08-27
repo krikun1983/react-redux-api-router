@@ -4,7 +4,7 @@ export interface SearchCategoryRadioValueState {
 
 export interface SearchCategoryRadioValueAction {
   type: string;
-  payload: boolean;
+  payload: string;
 }
 
 export enum SearchCategoryRadioValueActionTypes {

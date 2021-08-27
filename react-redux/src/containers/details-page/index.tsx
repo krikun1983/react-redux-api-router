@@ -12,7 +12,7 @@ import planets from '../../assets/images/planets.jpg';
 import rick from '../../assets/images/rick.jpg';
 import changeLocation from '../../services/changeLocation';
 
-const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
+const DetailsPage = ({ pathDetailsPage }: DetailsProps): JSX.Element => {
   const locations = useLocation();
   const newLocation = changeLocation(locations.pathname);
   const [errorApi, setErrorApi] = useState(false);
@@ -26,16 +26,16 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
     (async (): Promise<void> => {
       const { id } = match.params;
       let response;
-      if (searchRadioValue === ApiItem.CHARACTER) {
+      if (pathDetailsPage === ApiItem.CHARACTER) {
         response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
-      } else if (searchRadioValue === ApiItem.LOCATION) {
+      } else if (pathDetailsPage === ApiItem.LOCATION) {
         response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
-      } else if (searchRadioValue === ApiItem.EPISODE) {
+      } else if (pathDetailsPage === ApiItem.EPISODE) {
         response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
       }
 
       if (response) {
-        if (searchRadioValue === ApiItem.CHARACTER) {
+        if (pathDetailsPage === ApiItem.CHARACTER) {
           setDetailsInfo([
             { title: 'Status', data: (response as ResultsCharacter).status },
             { title: 'Species', data: (response as ResultsCharacter).species },
@@ -46,7 +46,7 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
           ]);
           setDetailsTitle((response as ResultsCharacter).name);
           setDetailsPhoto((response as ResultsCharacter).image);
-        } else if (searchRadioValue === ApiItem.LOCATION) {
+        } else if (pathDetailsPage === ApiItem.LOCATION) {
           setDetailsInfo([
             { title: 'Type', data: (response as ResultsLocation).type },
             { title: 'Dimension', data: (response as ResultsLocation).dimension },
@@ -55,7 +55,7 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
           ]);
           setDetailsTitle((response as ResultsLocation).name);
           setDetailsPhoto(planets);
-        } else if (searchRadioValue === ApiItem.EPISODE) {
+        } else if (pathDetailsPage === ApiItem.EPISODE) {
           setDetailsInfo([
             { title: 'Air_date', data: (response as ResultsEpisode).air_date },
             { title: 'Episode', data: (response as ResultsEpisode).episode },
@@ -79,7 +79,7 @@ const DetailsPage = ({ searchRadioValue }: DetailsProps): JSX.Element => {
         <span className="details__title">{detailsTitle}</span>
         <div className="details__container">
           <DetailsPhotoComponent detailsPhoto={detailsPhoto} detailsTitle={detailsTitle} />
-          {detailsInfo && <DetailsInfoComponent detailsInfo={detailsInfo} searchRadioValue={searchRadioValue} />}
+          {detailsInfo && <DetailsInfoComponent detailsInfo={detailsInfo} pathDetailsPage={pathDetailsPage} />}
         </div>
       </div>
     </>

@@ -4,11 +4,10 @@ import Form from '../../components/form';
 import PageNavigation from '../../components/main/pages-navigation';
 import Table from '../../components/table';
 import getPageId from '../../services/getPageId';
-import { HomeProps } from '../../types/details';
 import { GetApiData } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 
-const HomePage = ({ searchRadioValue, onSetSearchRadioValue }: HomeProps): JSX.Element => {
+const HomePage = (): JSX.Element => {
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
   const [tableView, setTableView] = useState<boolean>(false);
 
@@ -45,12 +44,10 @@ const HomePage = ({ searchRadioValue, onSetSearchRadioValue }: HomeProps): JSX.E
         onSetCurrentPage={setCurrentPage}
         currentPage={currentPage}
         onGetResource={getResource}
-        onSetSearchRadioValue={onSetSearchRadioValue}
-        searchRadioValue={searchRadioValue}
         searchError={searchError}
       />
       <PageNavigation tableView={tableView} prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
-      <Table dataApi={dataApi} tableView={tableView} searchRadioValue={searchRadioValue} />
+      <Table dataApi={dataApi} tableView={tableView} />
     </>
   );
 };
