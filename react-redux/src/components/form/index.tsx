@@ -34,6 +34,7 @@ const Form = ({ dataApi, onSetDataApi, onGetResource }: SetFormValuesProps): JSX
     const { value } = event.target;
 
     onSetDataApi(null);
+    dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
     dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
     dispatch({ type: value.toUpperCase() });
   };
