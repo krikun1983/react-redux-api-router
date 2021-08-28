@@ -61,7 +61,6 @@ export type SetFormValuesProps = {
   dataApi: GetApiData | null;
   onSetDataApi: Dispatch<SetStateAction<GetApiData | null>>;
   onGetResource: (url: string) => Promise<void>;
-  searchError: boolean;
 };
 
 export type TableProps = {

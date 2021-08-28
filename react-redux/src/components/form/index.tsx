@@ -8,10 +8,11 @@ import { CurrentPageActionType } from '../../store/types/currentPage';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { ApiItem, SetFormValuesProps } from '../../types/form-api';
 
-const Form = ({ dataApi, onSetDataApi, onGetResource, searchError }: SetFormValuesProps): JSX.Element => {
+const Form = ({ dataApi, onSetDataApi, onGetResource }: SetFormValuesProps): JSX.Element => {
   const dispatch = useDispatch();
   const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
   const { currentPage } = useTypeSelector(state => state.currentPage);
+  const { isSearchFieldNameError } = useTypeSelector(state => state.isSearchFieldNameError);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -204,7 +205,11 @@ const Form = ({ dataApi, onSetDataApi, onGetResource, searchError }: SetFormValu
             {isLoading ? 'Loading...' : 'Search'}
           </button>
         </fieldset>
-        {searchError ? <div className="form-search-result">Search word for name field not found!</div> : <></>}
+        {isSearchFieldNameError ? (
+          <div className="form-search-result">Search word for name field not found!</div>
+        ) : (
+          <></>
+        )}
       </form>
     </>
   );

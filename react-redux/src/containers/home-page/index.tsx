@@ -6,6 +6,7 @@ import PageNavigation from '../../components/main/pages-navigation';
 import Table from '../../components/table';
 import getPageId from '../../services/getPageId';
 import { CurrentPageActionType } from '../../store/types/currentPage';
+import { SearchFieldNameErrorTypes } from '../../store/types/searchFieldNameError';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { GetApiData } from '../../types/form-api';
 import getApiResource from '../../utils/network';
@@ -14,7 +15,6 @@ const HomePage = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
-  const [searchError, setSearchError] = useState<boolean>(false);
 
   const getResource = async (getUrl: string): Promise<void> => {
     const body = await getApiResource(getUrl);
@@ -26,16 +26,16 @@ const HomePage = (): JSX.Element => {
       dispatch({ type: CurrentPageActionType.NEXT, payload: (bodyType as GetApiData).info.next });
       dispatch({ type: CurrentPageActionType.CURRENT, payload: getPageId(getUrl) });
       dispatch({ type: SearchResultsTableViewActionTypes.SHOW });
-      setSearchError(false);
+      dispatch({ type: SearchFieldNameErrorTypes.SUCCESS });
     } else {
       dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
-      setSearchError(true);
+      dispatch({ type: SearchFieldNameErrorTypes.NOT_SUCCESS });
     }
   };
 
   return (
     <>
-      <Form dataApi={dataApi} onSetDataApi={setDataApi} onGetResource={getResource} searchError={searchError} />
+      <Form dataApi={dataApi} onSetDataApi={setDataApi} onGetResource={getResource} />
       <PageNavigation onGetResource={getResource} />
       <Table dataApi={dataApi} />
     </>
