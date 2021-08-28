@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
 import { useLocation, useRouteMatch } from 'react-router';
+import { useDispatch } from 'react-redux';
 import DetailsLinkBack from '../../components/details-page/details-link-back';
 import DetailsPhotoComponent from '../../components/details-page/details-photo';
 import DetailsInfoComponent from '../../components/details-page/details-info';
 import { BASE_URL } from '../../constants/api';
-import { MatchProps, Res } from '../../types/details';
+import { RouteMatchType } from '../../types/details';
 import { ApiItem, ResultsCharacter, ResultsEpisode, ResultsLocation } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 import planets from '../../assets/images/planets.jpg';
 import rick from '../../assets/images/rick.jpg';
 import changeLocation from '../../services/changeLocation';
+import { DetailsPageActionTypes } from '../../store/types/detailsPage';
+import useTypeSelector from '../../store/hooks/useTypeSelector';
 
 const DetailsPage = (): JSX.Element => {
   const locations = useLocation();
   const newLocation = changeLocation(locations.pathname);
-  const [errorApi, setErrorApi] = useState(false);
-  const [detailsInfo, setDetailsInfo] = useState<Res[] | null>(null);
-  const [detailsTitle, setDetailsTitle] = useState<string>('');
-  const [detailsPhoto, setDetailsPhoto] = useState<string>('');
+  const dispatch = useDispatch();
+  const { detailsTitle } = useTypeSelector(state => state.detailsTitle);
+  const { detailsInfo } = useTypeSelector(state => state.detailsInfo);
 
-  const match = useRouteMatch<MatchProps>();
+  const [errorApi, setErrorApi] = useState(false);
+
+  const match = useRouteMatch<RouteMatchType>();
 
   useEffect(() => {
     (async (): Promise<void> => {
@@ -29,34 +33,43 @@ const DetailsPage = (): JSX.Element => {
 
       if (response) {
         if (newLocation === ApiItem.CHARACTER) {
-          setDetailsInfo([
-            { title: 'Status', data: (response as ResultsCharacter).status },
-            { title: 'Species', data: (response as ResultsCharacter).species },
-            { title: 'Gender', data: (response as ResultsCharacter).gender },
-            { title: 'Created', data: (response as ResultsCharacter).created },
-            { title: 'Episode', data: String((response as ResultsCharacter).episode.length) },
-            { title: 'Type', data: (response as ResultsCharacter).type },
-          ]);
-          setDetailsTitle((response as ResultsCharacter).name);
-          setDetailsPhoto((response as ResultsCharacter).image);
+          dispatch({
+            type: DetailsPageActionTypes.INFO,
+            payload: [
+              { title: 'Status', data: (response as ResultsCharacter).status },
+              { title: 'Species', data: (response as ResultsCharacter).species },
+              { title: 'Gender', data: (response as ResultsCharacter).gender },
+              { title: 'Created', data: (response as ResultsCharacter).created },
+              { title: 'Episode', data: String((response as ResultsCharacter).episode.length) },
+              { title: 'Type', data: (response as ResultsCharacter).type },
+            ],
+          });
+          dispatch({ type: DetailsPageActionTypes.TITLE, payload: (response as ResultsCharacter).name });
+          dispatch({ type: DetailsPageActionTypes.PHOTO, payload: (response as ResultsCharacter).image });
         } else if (newLocation === ApiItem.LOCATION) {
-          setDetailsInfo([
-            { title: 'Type', data: (response as ResultsLocation).type },
-            { title: 'Dimension', data: (response as ResultsLocation).dimension },
-            { title: 'Created', data: (response as ResultsLocation).created },
-            { title: 'Residents', data: String((response as ResultsLocation).residents.length) },
-          ]);
-          setDetailsTitle((response as ResultsLocation).name);
-          setDetailsPhoto(planets);
+          dispatch({
+            type: DetailsPageActionTypes.INFO,
+            payload: [
+              { title: 'Type', data: (response as ResultsLocation).type },
+              { title: 'Dimension', data: (response as ResultsLocation).dimension },
+              { title: 'Created', data: (response as ResultsLocation).created },
+              { title: 'Residents', data: String((response as ResultsLocation).residents.length) },
+            ],
+          });
+          dispatch({ type: DetailsPageActionTypes.TITLE, payload: (response as ResultsLocation).name });
+          dispatch({ type: DetailsPageActionTypes.PHOTO, payload: planets });
         } else if (newLocation === ApiItem.EPISODE) {
-          setDetailsInfo([
-            { title: 'Air_date', data: (response as ResultsEpisode).air_date },
-            { title: 'Episode', data: (response as ResultsEpisode).episode },
-            { title: 'Created', data: (response as ResultsEpisode).created },
-            { title: 'Characters', data: String((response as ResultsEpisode).characters.length) },
-          ]);
-          setDetailsTitle((response as ResultsEpisode).name);
-          setDetailsPhoto(rick);
+          dispatch({
+            type: DetailsPageActionTypes.INFO,
+            payload: [
+              { title: 'Air_date', data: (response as ResultsEpisode).air_date },
+              { title: 'Episode', data: (response as ResultsEpisode).episode },
+              { title: 'Created', data: (response as ResultsEpisode).created },
+              { title: 'Characters', data: String((response as ResultsEpisode).characters.length) },
+            ],
+          });
+          dispatch({ type: DetailsPageActionTypes.TITLE, payload: (response as ResultsEpisode).name });
+          dispatch({ type: DetailsPageActionTypes.PHOTO, payload: rick });
         }
         setErrorApi(errorApi);
       } else {
@@ -71,8 +84,8 @@ const DetailsPage = (): JSX.Element => {
       <div className="details__wrapper">
         <span className="details__title">{detailsTitle}</span>
         <div className="details__container">
-          <DetailsPhotoComponent detailsPhoto={detailsPhoto} detailsTitle={detailsTitle} />
-          {detailsInfo && <DetailsInfoComponent detailsInfo={detailsInfo} pathDetailsPage={newLocation} />}
+          <DetailsPhotoComponent />
+          {detailsInfo && <DetailsInfoComponent />}
         </div>
       </div>
     </>

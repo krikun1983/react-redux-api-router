@@ -1,12 +1,19 @@
 import React from 'react';
-import { DetailsInfoProps } from '../../../types/details';
+
+import { useLocation } from 'react-router';
+import changeLocation from '../../../services/changeLocation';
+import useTypeSelector from '../../../store/hooks/useTypeSelector';
 import { ApiItem } from '../../../types/form-api';
 
-const DetailsInfoComponent = ({ detailsInfo, pathDetailsPage }: DetailsInfoProps): JSX.Element => {
+const DetailsInfoComponent = (): JSX.Element => {
+  const locations = useLocation();
+  const newLocation = changeLocation(locations.pathname);
+  const { detailsInfo } = useTypeSelector(state => state.detailsInfo);
+
   return (
     <div className="details__container_info">
       <ul className="details__info__list">
-        {pathDetailsPage === ApiItem.CHARACTER ? (
+        {newLocation === ApiItem.CHARACTER ? (
           detailsInfo.map(({ title, data }) => {
             return (
               data && (
@@ -21,7 +28,7 @@ const DetailsInfoComponent = ({ detailsInfo, pathDetailsPage }: DetailsInfoProps
         ) : (
           <></>
         )}
-        {pathDetailsPage === ApiItem.LOCATION ? (
+        {newLocation === ApiItem.LOCATION ? (
           detailsInfo.map(({ title, data }) => {
             return (
               data && (
@@ -36,7 +43,7 @@ const DetailsInfoComponent = ({ detailsInfo, pathDetailsPage }: DetailsInfoProps
         ) : (
           <></>
         )}
-        {pathDetailsPage === ApiItem.EPISODE ? (
+        {newLocation === ApiItem.EPISODE ? (
           detailsInfo.map(({ title, data }) => {
             return (
               data && (
