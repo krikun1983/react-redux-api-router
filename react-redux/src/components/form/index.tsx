@@ -151,7 +151,7 @@ const Form = ({ dataApi, onSetDataApi, onGetResource }: SetFormValuesProps): JSX
         </fieldset>
         <fieldset className="form__service">
           <legend>Chose a page and click search</legend>
-          <select onChange={handleChangeSelect} value={+(currentPage as string)}>
+          <select onChange={handleChangeSelect} value={+currentPage}>
             <option value="">{currentPage}</option>
             {select()}
           </select>

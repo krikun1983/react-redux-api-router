@@ -1,7 +1,7 @@
 export interface CurrentPageState {
-  currentPage: number | string | null;
-  prevPage: number | string | null;
-  nextPage: number | string | null;
+  currentPage: number;
+  prevPage: string | null;
+  nextPage: string | null;
 }
 
 export interface CurrentPageAction {
