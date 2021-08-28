@@ -5,19 +5,19 @@ import Form from '../../components/form';
 import PageNavigation from '../../components/main/pages-navigation';
 import Table from '../../components/table';
 import getPageId from '../../services/getPageId';
+import { CurrentPageActionType } from '../../store/types/currentPage';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { GetApiData } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 
 const HomePage = (): JSX.Element => {
   const dispatch = useDispatch();
-  const [dataApi, setDataApi] = useState<GetApiData | null>(null);
 
+  const [dataApi, setDataApi] = useState<GetApiData | null>(null);
   const [searchError, setSearchError] = useState<boolean>(false);
 
   const [prevPage, setPrevPage] = useState<string | null>('');
   const [nextPage, setNextPage] = useState<string | null>('');
-  const [currentPage, setCurrentPage] = useState(1);
 
   const getResource = async (getUrl: string): Promise<void> => {
     const body = await getApiResource(getUrl);
@@ -27,8 +27,8 @@ const HomePage = (): JSX.Element => {
       setDataApi(bodyType);
       setPrevPage((bodyType as GetApiData).info.prev);
       setNextPage((bodyType as GetApiData).info.next);
-      setCurrentPage(getPageId(getUrl));
 
+      dispatch({ type: CurrentPageActionType.CURRENT, payload: getPageId(getUrl) });
       dispatch({ type: SearchResultsTableViewActionTypes.SHOW });
       setSearchError(false);
     } else {
@@ -39,14 +39,7 @@ const HomePage = (): JSX.Element => {
 
   return (
     <>
-      <Form
-        dataApi={dataApi}
-        onSetDataApi={setDataApi}
-        onSetCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        onGetResource={getResource}
-        searchError={searchError}
-      />
+      <Form dataApi={dataApi} onSetDataApi={setDataApi} onGetResource={getResource} searchError={searchError} />
       <PageNavigation prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
       <Table dataApi={dataApi} />
     </>

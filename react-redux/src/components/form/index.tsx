@@ -1,21 +1,17 @@
 import React, { ChangeEvent, useState } from 'react';
+
 import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
+import { CurrentPageActionType } from '../../store/types/currentPage';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { ApiItem, SetFormValuesProps } from '../../types/form-api';
 
-const Form = ({
-  dataApi,
-  onSetDataApi,
-  onSetCurrentPage,
-  currentPage,
-  onGetResource,
-  searchError,
-}: SetFormValuesProps): JSX.Element => {
+const Form = ({ dataApi, onSetDataApi, onGetResource, searchError }: SetFormValuesProps): JSX.Element => {
   const dispatch = useDispatch();
   const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
+  const { currentPage } = useTypeSelector(state => state.currentPage);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -44,7 +40,7 @@ const Form = ({
   // Выбор номера страницы
   const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
-    onSetCurrentPage(+value);
+    dispatch({ type: CurrentPageActionType.CURRENT, payload: +value });
   };
   // Выбор сортировки
   const handleChangeSelectSortStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
