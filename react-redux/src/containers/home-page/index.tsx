@@ -16,18 +16,14 @@ const HomePage = (): JSX.Element => {
   const [dataApi, setDataApi] = useState<GetApiData | null>(null);
   const [searchError, setSearchError] = useState<boolean>(false);
 
-  const [prevPage, setPrevPage] = useState<string | null>('');
-  const [nextPage, setNextPage] = useState<string | null>('');
-
   const getResource = async (getUrl: string): Promise<void> => {
     const body = await getApiResource(getUrl);
     const bodyType = body as GetApiData;
 
     if (bodyType) {
       setDataApi(bodyType);
-      setPrevPage((bodyType as GetApiData).info.prev);
-      setNextPage((bodyType as GetApiData).info.next);
-
+      dispatch({ type: CurrentPageActionType.PREV, payload: (bodyType as GetApiData).info.prev });
+      dispatch({ type: CurrentPageActionType.NEXT, payload: (bodyType as GetApiData).info.next });
       dispatch({ type: CurrentPageActionType.CURRENT, payload: getPageId(getUrl) });
       dispatch({ type: SearchResultsTableViewActionTypes.SHOW });
       setSearchError(false);
@@ -40,7 +36,7 @@ const HomePage = (): JSX.Element => {
   return (
     <>
       <Form dataApi={dataApi} onSetDataApi={setDataApi} onGetResource={getResource} searchError={searchError} />
-      <PageNavigation prevPage={prevPage} nextPage={nextPage} onGetResource={getResource} />
+      <PageNavigation onGetResource={getResource} />
       <Table dataApi={dataApi} />
     </>
   );

@@ -2,13 +2,13 @@ import React from 'react';
 import useTypeSelector from '../../../store/hooks/useTypeSelector';
 
 type NavigationProps = {
-  prevPage: string | null;
-  nextPage: string | null;
   onGetResource: (url: string) => Promise<void>;
 };
 
-const PageNavigation = ({ prevPage, nextPage, onGetResource }: NavigationProps): JSX.Element => {
+const PageNavigation = ({ onGetResource }: NavigationProps): JSX.Element => {
   const { isSearchResultsTableView } = useTypeSelector(state => state.isSearchResultsTableView);
+  const { prevPage } = useTypeSelector(state => state.prevPage);
+  const { nextPage } = useTypeSelector(state => state.nextPage);
 
   const handleChangePrev = (): Promise<void> => onGetResource(prevPage as string);
   const handleChangeNext = (): Promise<void> => onGetResource(nextPage as string);

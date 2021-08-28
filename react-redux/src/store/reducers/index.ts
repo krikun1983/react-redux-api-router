@@ -7,6 +7,8 @@ const rootReducer = combineReducers({
   searchCategoryRadioValue: searchCategoryRadioValueReducer,
   isSearchResultsTableView: searchResultsTableViewReducer,
   currentPage: currentPageReducer,
+  prevPage: currentPageReducer,
+  nextPage: currentPageReducer,
 });
 
 export default rootReducer;

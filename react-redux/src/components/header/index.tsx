@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { CurrentPageActionType } from '../../store/types/currentPage';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 
 const Header = (): JSX.Element => {
@@ -8,6 +9,7 @@ const Header = (): JSX.Element => {
 
   const closeSearchResultsTable = (): void => {
     dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
+    dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
   };
 
   return (

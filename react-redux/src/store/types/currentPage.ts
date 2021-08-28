@@ -1,10 +1,12 @@
 export interface CurrentPageState {
-  currentPage: number;
+  currentPage: number | string | null;
+  prevPage: number | string | null;
+  nextPage: number | string | null;
 }
 
 export interface CurrentPageAction {
   type: string;
-  payload: number;
+  payload: number | string | null;
 }
 
 export enum CurrentPageActionType {
