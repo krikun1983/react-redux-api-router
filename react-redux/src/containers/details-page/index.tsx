@@ -5,14 +5,14 @@ import DetailsLinkBack from '../../components/details-page/details-link-back';
 import DetailsPhotoComponent from '../../components/details-page/details-photo';
 import DetailsInfoComponent from '../../components/details-page/details-info';
 import { BASE_URL } from '../../constants/api';
-import { DetailsProps, MatchProps, Res } from '../../types/details';
+import { MatchProps, Res } from '../../types/details';
 import { ApiItem, ResultsCharacter, ResultsEpisode, ResultsLocation } from '../../types/form-api';
 import getApiResource from '../../utils/network';
 import planets from '../../assets/images/planets.jpg';
 import rick from '../../assets/images/rick.jpg';
 import changeLocation from '../../services/changeLocation';
 
-const DetailsPage = ({ pathDetailsPage }: DetailsProps): JSX.Element => {
+const DetailsPage = (): JSX.Element => {
   const locations = useLocation();
   const newLocation = changeLocation(locations.pathname);
   const [errorApi, setErrorApi] = useState(false);
@@ -25,17 +25,10 @@ const DetailsPage = ({ pathDetailsPage }: DetailsProps): JSX.Element => {
   useEffect(() => {
     (async (): Promise<void> => {
       const { id } = match.params;
-      let response;
-      if (pathDetailsPage === ApiItem.CHARACTER) {
-        response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
-      } else if (pathDetailsPage === ApiItem.LOCATION) {
-        response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
-      } else if (pathDetailsPage === ApiItem.EPISODE) {
-        response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
-      }
+      const response = await getApiResource(`${BASE_URL}${newLocation}/${id}`);
 
       if (response) {
-        if (pathDetailsPage === ApiItem.CHARACTER) {
+        if (newLocation === ApiItem.CHARACTER) {
           setDetailsInfo([
             { title: 'Status', data: (response as ResultsCharacter).status },
             { title: 'Species', data: (response as ResultsCharacter).species },
@@ -46,7 +39,7 @@ const DetailsPage = ({ pathDetailsPage }: DetailsProps): JSX.Element => {
           ]);
           setDetailsTitle((response as ResultsCharacter).name);
           setDetailsPhoto((response as ResultsCharacter).image);
-        } else if (pathDetailsPage === ApiItem.LOCATION) {
+        } else if (newLocation === ApiItem.LOCATION) {
           setDetailsInfo([
             { title: 'Type', data: (response as ResultsLocation).type },
             { title: 'Dimension', data: (response as ResultsLocation).dimension },
@@ -55,7 +48,7 @@ const DetailsPage = ({ pathDetailsPage }: DetailsProps): JSX.Element => {
           ]);
           setDetailsTitle((response as ResultsLocation).name);
           setDetailsPhoto(planets);
-        } else if (pathDetailsPage === ApiItem.EPISODE) {
+        } else if (newLocation === ApiItem.EPISODE) {
           setDetailsInfo([
             { title: 'Air_date', data: (response as ResultsEpisode).air_date },
             { title: 'Episode', data: (response as ResultsEpisode).episode },
@@ -79,7 +72,7 @@ const DetailsPage = ({ pathDetailsPage }: DetailsProps): JSX.Element => {
         <span className="details__title">{detailsTitle}</span>
         <div className="details__container">
           <DetailsPhotoComponent detailsPhoto={detailsPhoto} detailsTitle={detailsTitle} />
-          {detailsInfo && <DetailsInfoComponent detailsInfo={detailsInfo} pathDetailsPage={pathDetailsPage} />}
+          {detailsInfo && <DetailsInfoComponent detailsInfo={detailsInfo} pathDetailsPage={newLocation} />}
         </div>
       </div>
     </>
