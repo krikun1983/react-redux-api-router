@@ -2,14 +2,14 @@ import { Dispatch } from 'react';
 import getPageId from '../services/getPageId';
 import { CurrentPageAction, CurrentPageActionType } from '../store/types/currentPage';
 import { DataApiAction, DataApiActionTypes } from '../store/types/dataApi';
-import { SearchFieldNameErrorTypes } from '../store/types/searchFieldNameError';
+import { SearchFieldNameErrorAction, SearchFieldNameErrorTypes } from '../store/types/searchFieldNameError';
 import { SearchResultsTableViewAction, SearchResultsTableViewActionTypes } from '../store/types/searchResultsTableView';
 import { GetApiData } from '../types/form-api';
 import getApiResource from './network';
 
 const getResource = async (
   getUrl: string,
-  dispatch: Dispatch<DataApiAction | CurrentPageAction | SearchResultsTableViewAction | SearchFieldNameErrorTypes>,
+  dispatch: Dispatch<DataApiAction | CurrentPageAction | SearchResultsTableViewAction | SearchFieldNameErrorAction>,
 ): Promise<void> => {
   const body = await getApiResource(getUrl);
   const bodyType = body as GetApiData;
