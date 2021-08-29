@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import currentPageReducer from './currentPageReducer';
+import currentUrlGoBackReducer from './currentUrlGoBackReducer';
 import dataApiReducer from './dataApiReducer';
 import detailsPageReducer from './detailsPageReducer';
 import searchCategoryRadioValueReducer from './searchCategoryRadioValueReducer';
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   detailsTitle: detailsPageReducer,
   detailsInfo: detailsPageReducer,
   dataApi: dataApiReducer,
+  currentUrl: currentUrlGoBackReducer,
 });
 
 export default rootReducer;

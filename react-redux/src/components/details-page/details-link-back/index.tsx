@@ -2,15 +2,17 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import iconGoBack from '../../../assets/images/back.svg';
-import { searchResultsTableClose } from '../../../store/reducers/searchResultsTableViewReducer';
+import useTypeSelector from '../../../store/hooks/useTypeSelector';
+import getResource from '../../../utils/networksResource';
 
 const DetailsLinkBack = (): JSX.Element => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { currentUrl } = useTypeSelector(state => state.currentUrl);
 
-  const handleGoBack = (): void => {
+  const handleGoBack = async (): Promise<void> => {
     history.go(-1);
-    dispatch(searchResultsTableClose());
+    await getResource(currentUrl, dispatch);
   };
   return (
     <button className="back_link" onClick={handleGoBack} type="button">

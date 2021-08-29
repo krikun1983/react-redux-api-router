@@ -1,6 +1,7 @@
 import { Dispatch } from 'react';
 import getPageId from '../services/getPageId';
 import { currentPageAction, currentPageNextAction, currentPagePrevAction } from '../store/reducers/currentPageReducer';
+import { currentUrlAction } from '../store/reducers/currentUrlGoBackReducer';
 import { dataApiActionLoading } from '../store/reducers/dataApiReducer';
 import {
   searchFieldNameErrorNotSuccess,
@@ -28,6 +29,7 @@ const getResource = async (
     dispatch(currentPageAction(getPageId(getUrl)));
     dispatch(searchResultsTableShow());
     dispatch(searchFieldNameErrorSuccess());
+    dispatch(currentUrlAction(getUrl));
   } else {
     dispatch(searchResultsTableClose());
     dispatch(searchFieldNameErrorNotSuccess());
