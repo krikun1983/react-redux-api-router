@@ -10,8 +10,8 @@ export const SearchResultsTableClose = createAction('SearchResultsTableClose');
 
 const searchResultsTableViewReducer = createReducer(initialState, builder => {
   builder
-    .addCase(SearchResultsTableShow, (state, action) => {
-      state.isSearchResultsTableView = !action.payload;
+    .addCase(SearchResultsTableShow, state => {
+      state.isSearchResultsTableView = true;
     })
     .addCase(SearchResultsTableClose, state => {
       state.isSearchResultsTableView = false;
