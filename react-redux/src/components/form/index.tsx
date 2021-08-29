@@ -7,9 +7,10 @@ import useTypeSelector from '../../store/hooks/useTypeSelector';
 import { CurrentPageActionType } from '../../store/types/currentPage';
 import { DataApiActionTypes } from '../../store/types/dataApi';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
-import { ApiItem, SetFormValuesProps } from '../../types/form-api';
+import { ApiItem } from '../../types/form-api';
+import getResource from '../../utils/networksResource';
 
-const Form = ({ onGetResource }: SetFormValuesProps): JSX.Element => {
+const Form = (): JSX.Element => {
   const dispatch = useDispatch();
   const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
   const { currentPage } = useTypeSelector(state => state.currentPage);
@@ -61,23 +62,32 @@ const Form = ({ onGetResource }: SetFormValuesProps): JSX.Element => {
     setIsLoading(true);
 
     if (searchValue && sortStatus && sortGender) {
-      await onGetResource(
+      await getResource(
         `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}&status=${sortStatus}&gender=${sortGender}`,
+        dispatch,
       );
     } else if (searchValue) {
-      await onGetResource(
+      await getResource(
         `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&name=${searchValue.toLowerCase()}`,
+        dispatch,
       );
     } else if (sortStatus && sortGender) {
-      await onGetResource(
+      await getResource(
         `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}&gender=${sortGender}`,
+        dispatch,
       );
     } else if (sortStatus) {
-      await onGetResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}`);
+      await getResource(
+        `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&status=${sortStatus}`,
+        dispatch,
+      );
     } else if (sortGender) {
-      await onGetResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&gender=${sortGender}`);
+      await getResource(
+        `${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}&gender=${sortGender}`,
+        dispatch,
+      );
     } else {
-      await onGetResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}`);
+      await getResource(`${BASE_URL}${searchCategoryRadioValue}${PARAM_PAGE}${currentPage}`, dispatch);
     }
 
     setSearchValue('');

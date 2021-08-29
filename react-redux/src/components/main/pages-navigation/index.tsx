@@ -1,17 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import useTypeSelector from '../../../store/hooks/useTypeSelector';
+import getResource from '../../../utils/networksResource';
 
-type NavigationProps = {
-  onGetResource: (url: string) => Promise<void>;
-};
-
-const PageNavigation = ({ onGetResource }: NavigationProps): JSX.Element => {
+const PageNavigation = (): JSX.Element => {
+  const dispatch = useDispatch();
   const { isSearchResultsTableView } = useTypeSelector(state => state.isSearchResultsTableView);
   const { prevPage } = useTypeSelector(state => state.prevPage);
   const { nextPage } = useTypeSelector(state => state.nextPage);
 
-  const handleChangePrev = (): Promise<void> => onGetResource(prevPage as string);
-  const handleChangeNext = (): Promise<void> => onGetResource(nextPage as string);
+  const handleChangePrev = (): Promise<void> => getResource(prevPage as string, dispatch);
+  const handleChangeNext = (): Promise<void> => getResource(nextPage as string, dispatch);
 
   return (
     <>

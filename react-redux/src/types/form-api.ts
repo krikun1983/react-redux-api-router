@@ -55,10 +55,6 @@ export interface GetApiData {
   results: Results[];
 }
 
-export type SetFormValuesProps = {
-  onGetResource: (url: string) => Promise<void>;
-};
-
 export enum ApiItem {
   CHARACTER = 'character',
   LOCATION = 'location',
