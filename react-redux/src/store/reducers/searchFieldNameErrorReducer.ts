@@ -1,25 +1,20 @@
-import {
-  SearchFieldNameErrorState,
-  SearchFieldNameErrorAction,
-  SearchFieldNameErrorTypes,
-} from '../types/searchFieldNameError';
+import { createReducer, createAction } from '@reduxjs/toolkit';
 
-const initialState: SearchFieldNameErrorState = {
+const initialState = {
   isSearchFieldNameError: false,
 };
 
-const searchFieldNameErrorReducer = (
-  state = initialState,
-  action: SearchFieldNameErrorAction,
-): SearchFieldNameErrorState => {
-  switch (action.type) {
-    case SearchFieldNameErrorTypes.SUCCESS:
-      return { ...state, isSearchFieldNameError: false };
-    case SearchFieldNameErrorTypes.NOT_SUCCESS:
-      return { ...state, isSearchFieldNameError: true };
-    default:
-      return state;
-  }
-};
+export const searchFieldNameErrorSuccess = createAction('searchFieldNameErrorSuccess');
+export const searchFieldNameErrorNotSuccess = createAction('searchFieldNameErrorNotSuccess');
+
+const searchFieldNameErrorReducer = createReducer(initialState, builder => {
+  builder
+    .addCase(searchFieldNameErrorSuccess, state => {
+      state.isSearchFieldNameError = false;
+    })
+    .addCase(searchFieldNameErrorNotSuccess, state => {
+      state.isSearchFieldNameError = true;
+    });
+});
 
 export default searchFieldNameErrorReducer;

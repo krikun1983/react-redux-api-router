@@ -4,10 +4,5 @@ export interface SearchFieldNameErrorState {
 
 export interface SearchFieldNameErrorAction {
   type: string;
-  payload: boolean;
-}
-
-export enum SearchFieldNameErrorTypes {
-  SUCCESS = 'SUCCESS',
-  NOT_SUCCESS = 'NOT_SUCCESS',
+  payload: boolean | undefined;
 }

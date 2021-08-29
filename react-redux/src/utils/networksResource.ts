@@ -1,9 +1,13 @@
 import { Dispatch } from 'react';
 import getPageId from '../services/getPageId';
-import { SearchResultsTableClose, SearchResultsTableShow } from '../store/reducers/searchResultsTableViewReducer';
+import {
+  searchFieldNameErrorNotSuccess,
+  searchFieldNameErrorSuccess,
+} from '../store/reducers/searchFieldNameErrorReducer';
+import { searchResultsTableClose, searchResultsTableShow } from '../store/reducers/searchResultsTableViewReducer';
 import { CurrentPageAction, CurrentPageActionType } from '../store/types/currentPage';
 import { DataApiAction, DataApiActionTypes } from '../store/types/dataApi';
-import { SearchFieldNameErrorAction, SearchFieldNameErrorTypes } from '../store/types/searchFieldNameError';
+import { SearchFieldNameErrorAction } from '../store/types/searchFieldNameError';
 import { SearchResultsTableViewAction } from '../store/types/searchResultsTableView';
 import { GetApiData } from '../types/form-api';
 import getApiResource from './network';
@@ -20,11 +24,11 @@ const getResource = async (
     dispatch({ type: CurrentPageActionType.PREV, payload: (bodyType as GetApiData).info.prev });
     dispatch({ type: CurrentPageActionType.NEXT, payload: (bodyType as GetApiData).info.next });
     dispatch({ type: CurrentPageActionType.CURRENT, payload: getPageId(getUrl) });
-    dispatch(SearchResultsTableShow());
-    dispatch({ type: SearchFieldNameErrorTypes.SUCCESS, payload: false });
+    dispatch(searchResultsTableShow());
+    dispatch(searchFieldNameErrorSuccess());
   } else {
-    dispatch(SearchResultsTableClose());
-    dispatch({ type: SearchFieldNameErrorTypes.NOT_SUCCESS, payload: true });
+    dispatch(searchResultsTableClose());
+    dispatch(searchFieldNameErrorNotSuccess());
   }
 };
 

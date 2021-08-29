@@ -1,19 +1,18 @@
 import { createAction, createReducer } from '@reduxjs/toolkit';
-import { SearchResultsTableViewState } from '../types/searchResultsTableView';
 
-const initialState: SearchResultsTableViewState = {
+const initialState = {
   isSearchResultsTableView: false,
 };
 
-export const SearchResultsTableShow = createAction('SearchResultsTableShow');
-export const SearchResultsTableClose = createAction('SearchResultsTableClose');
+export const searchResultsTableShow = createAction('SearchResultsTableShow');
+export const searchResultsTableClose = createAction('SearchResultsTableClose');
 
 const searchResultsTableViewReducer = createReducer(initialState, builder => {
   builder
-    .addCase(SearchResultsTableShow, state => {
+    .addCase(searchResultsTableShow, state => {
       state.isSearchResultsTableView = true;
     })
-    .addCase(SearchResultsTableClose, state => {
+    .addCase(searchResultsTableClose, state => {
       state.isSearchResultsTableView = false;
     });
 });

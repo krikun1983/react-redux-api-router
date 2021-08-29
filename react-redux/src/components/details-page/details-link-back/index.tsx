@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import iconGoBack from '../../../assets/images/back.svg';
-import { SearchResultsTableClose } from '../../../store/reducers/searchResultsTableViewReducer';
+import { searchResultsTableClose } from '../../../store/reducers/searchResultsTableViewReducer';
 
 const DetailsLinkBack = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const DetailsLinkBack = (): JSX.Element => {
 
   const handleGoBack = (): void => {
     history.go(-1);
-    dispatch(SearchResultsTableClose());
+    dispatch(searchResultsTableClose());
   };
   return (
     <button className="back_link" onClick={handleGoBack} type="button">

@@ -1,17 +1,17 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { SearchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
+import { searchFieldNameErrorSuccess } from '../../store/reducers/searchFieldNameErrorReducer';
+import { searchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
 import { CurrentPageActionType } from '../../store/types/currentPage';
-import { SearchFieldNameErrorTypes } from '../../store/types/searchFieldNameError';
 
 const Header = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const closeSearchResultsTable = (): void => {
-    dispatch(SearchResultsTableClose());
+    dispatch(searchResultsTableClose());
     dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
-    dispatch({ type: SearchFieldNameErrorTypes.SUCCESS, payload: false });
+    dispatch(searchFieldNameErrorSuccess());
   };
 
   return (
