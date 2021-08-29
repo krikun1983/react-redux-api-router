@@ -30,6 +30,7 @@ const Form = (): JSX.Element => {
   const resetSort = (): void => {
     setSortStatus('');
     setSortGender('');
+    dispatch(currentPageAction(1));
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -59,10 +60,12 @@ const Form = (): JSX.Element => {
   const handleChangeSelectSortStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     setSortStatus(value);
+    dispatch(currentPageAction(1));
   };
   const handleChangeSelectSortGender = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     setSortGender(value);
+    dispatch(currentPageAction(1));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
