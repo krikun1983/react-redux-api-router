@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
+import { SearchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
 import { CurrentPageActionType } from '../../store/types/currentPage';
 import { DataApiActionTypes } from '../../store/types/dataApi';
-import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { ApiItem } from '../../types/form-api';
 import getResource from '../../utils/networksResource';
 
@@ -38,7 +38,7 @@ const Form = (): JSX.Element => {
 
     dispatch({ type: DataApiActionTypes.LOADING, payload: null });
     dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
-    dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
+    dispatch(SearchResultsTableClose());
     dispatch({ type: value.toUpperCase() });
   };
 

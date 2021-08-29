@@ -1,25 +1,21 @@
-import {
-  SearchResultsTableViewAction,
-  SearchResultsTableViewActionTypes,
-  SearchResultsTableViewState,
-} from '../types/searchResultsTableView';
+import { createAction, createReducer } from '@reduxjs/toolkit';
+import { SearchResultsTableViewState } from '../types/searchResultsTableView';
 
 const initialState: SearchResultsTableViewState = {
   isSearchResultsTableView: false,
 };
 
-const searchResultsTableViewReducer = (
-  state = initialState,
-  action: SearchResultsTableViewAction,
-): SearchResultsTableViewState => {
-  switch (action.type) {
-    case SearchResultsTableViewActionTypes.SHOW:
-      return { ...state, isSearchResultsTableView: true };
-    case SearchResultsTableViewActionTypes.CLOSE:
-      return { ...state, isSearchResultsTableView: false };
-    default:
-      return state;
-  }
-};
+export const SearchResultsTableShow = createAction('SearchResultsTableShow');
+export const SearchResultsTableClose = createAction('SearchResultsTableClose');
+
+const searchResultsTableViewReducer = createReducer(initialState, builder => {
+  builder
+    .addCase(SearchResultsTableShow, (state, action) => {
+      state.isSearchResultsTableView = !action.payload;
+    })
+    .addCase(SearchResultsTableClose, state => {
+      state.isSearchResultsTableView = false;
+    });
+});
 
 export default searchResultsTableViewReducer;

@@ -4,10 +4,5 @@ export interface SearchResultsTableViewState {
 
 export interface SearchResultsTableViewAction {
   type: string;
-  payload: boolean;
-}
-
-export enum SearchResultsTableViewActionTypes {
-  SHOW = 'SHOW',
-  CLOSE = 'CLOSE',
+  payload: boolean | undefined;
 }

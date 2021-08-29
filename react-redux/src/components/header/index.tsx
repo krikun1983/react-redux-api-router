@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { SearchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
 import { CurrentPageActionType } from '../../store/types/currentPage';
 import { SearchFieldNameErrorTypes } from '../../store/types/searchFieldNameError';
-import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 
 const Header = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const closeSearchResultsTable = (): void => {
-    dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
+    dispatch(SearchResultsTableClose());
     dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
     dispatch({ type: SearchFieldNameErrorTypes.SUCCESS, payload: false });
   };

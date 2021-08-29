@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from '@reduxjs/toolkit';
 import currentPageReducer from './currentPageReducer';
 import dataApiReducer from './dataApiReducer';
 import detailsPageReducer from './detailsPageReducer';
