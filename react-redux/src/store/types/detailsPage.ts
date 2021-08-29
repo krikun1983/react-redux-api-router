@@ -10,9 +10,3 @@ export interface DetailsPageAction {
   type: string;
   payload: string | Res[];
 }
-
-export enum DetailsPageActionTypes {
-  PHOTO = 'PHOTO',
-  TITLE = 'TITLE',
-  INFO = 'INFO',
-}
