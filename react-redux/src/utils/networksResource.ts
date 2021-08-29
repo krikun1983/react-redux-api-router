@@ -1,12 +1,13 @@
 import { Dispatch } from 'react';
 import getPageId from '../services/getPageId';
+import { currentPageAction, currentPageNextAction, currentPagePrevAction } from '../store/reducers/currentPageReducer';
 import { dataApiActionLoading } from '../store/reducers/dataApiReducer';
 import {
   searchFieldNameErrorNotSuccess,
   searchFieldNameErrorSuccess,
 } from '../store/reducers/searchFieldNameErrorReducer';
 import { searchResultsTableClose, searchResultsTableShow } from '../store/reducers/searchResultsTableViewReducer';
-import { CurrentPageAction, CurrentPageActionType } from '../store/types/currentPage';
+import { CurrentPageAction } from '../store/types/currentPage';
 import { DataApiAction } from '../store/types/dataApi';
 import { SearchFieldNameErrorAction } from '../store/types/searchFieldNameError';
 import { SearchResultsTableViewAction } from '../store/types/searchResultsTableView';
@@ -22,9 +23,9 @@ const getResource = async (
 
   if (bodyType) {
     dispatch(dataApiActionLoading(bodyType));
-    dispatch({ type: CurrentPageActionType.PREV, payload: (bodyType as GetApiData).info.prev });
-    dispatch({ type: CurrentPageActionType.NEXT, payload: (bodyType as GetApiData).info.next });
-    dispatch({ type: CurrentPageActionType.CURRENT, payload: getPageId(getUrl) });
+    dispatch(currentPagePrevAction((bodyType as GetApiData).info.prev));
+    dispatch(currentPageNextAction((bodyType as GetApiData).info.next));
+    dispatch(currentPageAction(getPageId(getUrl)));
     dispatch(searchResultsTableShow());
     dispatch(searchFieldNameErrorSuccess());
   } else {

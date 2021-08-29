@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
+import { currentPageAction } from '../../store/reducers/currentPageReducer';
 import { dataApiActionLoadingStop } from '../../store/reducers/dataApiReducer';
 import { searchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
-import { CurrentPageActionType } from '../../store/types/currentPage';
 import { ApiItem } from '../../types/form-api';
 import getResource from '../../utils/networksResource';
 
@@ -37,7 +37,7 @@ const Form = (): JSX.Element => {
     const { value } = event.target;
 
     dispatch(dataApiActionLoadingStop());
-    dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
+    dispatch(currentPageAction(1));
     dispatch(searchResultsTableClose());
     dispatch({ type: value.toUpperCase() });
   };
@@ -45,7 +45,7 @@ const Form = (): JSX.Element => {
   // Выбор номера страницы
   const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
-    dispatch({ type: CurrentPageActionType.CURRENT, payload: +value });
+    dispatch(currentPageAction(+value));
   };
   // Выбор сортировки
   const handleChangeSelectSortStatus = (event: ChangeEvent<HTMLSelectElement>): void => {

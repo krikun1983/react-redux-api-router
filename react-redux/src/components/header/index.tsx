@@ -1,16 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { currentPageAction } from '../../store/reducers/currentPageReducer';
 import { searchFieldNameErrorSuccess } from '../../store/reducers/searchFieldNameErrorReducer';
 import { searchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
-import { CurrentPageActionType } from '../../store/types/currentPage';
 
 const Header = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const closeSearchResultsTable = (): void => {
     dispatch(searchResultsTableClose());
-    dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
+    dispatch(currentPageAction(1));
     dispatch(searchFieldNameErrorSuccess());
   };
 
