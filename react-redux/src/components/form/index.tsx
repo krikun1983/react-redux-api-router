@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
+import { dataApiActionLoadingStop } from '../../store/reducers/dataApiReducer';
 import { searchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
 import { CurrentPageActionType } from '../../store/types/currentPage';
-import { DataApiActionTypes } from '../../store/types/dataApi';
 import { ApiItem } from '../../types/form-api';
 import getResource from '../../utils/networksResource';
 
@@ -36,7 +36,7 @@ const Form = (): JSX.Element => {
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
 
-    dispatch({ type: DataApiActionTypes.LOADING, payload: null });
+    dispatch(dataApiActionLoadingStop());
     dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
     dispatch(searchResultsTableClose());
     dispatch({ type: value.toUpperCase() });

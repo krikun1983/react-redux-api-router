@@ -6,9 +6,5 @@ export interface DataApiState {
 
 export interface DataApiAction {
   type: string;
-  payload: GetApiData;
-}
-
-export enum DataApiActionTypes {
-  LOADING = 'LOADING',
+  payload: GetApiData | undefined;
 }
