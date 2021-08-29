@@ -1,28 +1,26 @@
+import { createAction, createReducer } from '@reduxjs/toolkit';
 import { ApiItem } from '../../types/form-api';
-import {
-  SearchCategoryRadioValueAction,
-  SearchCategoryRadioValueActionTypes,
-  SearchCategoryRadioValueState,
-} from '../types/searchCategoryRadioValue';
+import { SearchCategoryRadioValueState } from '../types/searchCategoryRadioValue';
 
 const initialState: SearchCategoryRadioValueState = {
   searchCategoryRadioValue: ApiItem.CHARACTER,
 };
 
-const searchCategoryRadioValueReducer = (
-  state = initialState,
-  action: SearchCategoryRadioValueAction,
-): SearchCategoryRadioValueState => {
-  switch (action.type) {
-    case SearchCategoryRadioValueActionTypes.API_CATEGORY_CHARACTER:
-      return { ...state, searchCategoryRadioValue: ApiItem.CHARACTER };
-    case SearchCategoryRadioValueActionTypes.API_CATEGORY_LOCATION:
-      return { ...state, searchCategoryRadioValue: ApiItem.LOCATION };
-    case SearchCategoryRadioValueActionTypes.API_CATEGORY_EPISODE:
-      return { ...state, searchCategoryRadioValue: ApiItem.EPISODE };
-    default:
-      return state;
-  }
-};
+export const searchCategoryCharacterAction = createAction('searchCategoryCharacterAction');
+export const searchCategoryLocationAction = createAction('searchCategoryLocationAction');
+export const searchCategoryEpisodeAction = createAction('searchCategoryEpisodeAction');
+
+const searchCategoryRadioValueReducer = createReducer(initialState, builder => {
+  builder
+    .addCase(searchCategoryCharacterAction, state => {
+      state.searchCategoryRadioValue = ApiItem.CHARACTER;
+    })
+    .addCase(searchCategoryLocationAction, state => {
+      state.searchCategoryRadioValue = ApiItem.LOCATION;
+    })
+    .addCase(searchCategoryEpisodeAction, state => {
+      state.searchCategoryRadioValue = ApiItem.EPISODE;
+    });
+});
 
 export default searchCategoryRadioValueReducer;

@@ -6,6 +6,11 @@ import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
 import { currentPageAction } from '../../store/reducers/currentPageReducer';
 import { dataApiActionLoadingStop } from '../../store/reducers/dataApiReducer';
+import {
+  searchCategoryCharacterAction,
+  searchCategoryEpisodeAction,
+  searchCategoryLocationAction,
+} from '../../store/reducers/searchCategoryRadioValueReducer';
 import { searchResultsTableClose } from '../../store/reducers/searchResultsTableViewReducer';
 import { ApiItem } from '../../types/form-api';
 import getResource from '../../utils/networksResource';
@@ -27,27 +32,30 @@ const Form = (): JSX.Element => {
     setSortGender('');
   };
 
-  // Значение из строки поиска
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setSearchValue(value);
   };
-  // значение из radio
+
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
-
+    if (value === ApiItem.CHARACTER) {
+      dispatch(searchCategoryCharacterAction());
+    } else if (value === ApiItem.LOCATION) {
+      dispatch(searchCategoryLocationAction());
+    } else if (value === ApiItem.EPISODE) {
+      dispatch(searchCategoryEpisodeAction());
+    }
     dispatch(dataApiActionLoadingStop());
     dispatch(currentPageAction(1));
     dispatch(searchResultsTableClose());
-    dispatch({ type: value.toUpperCase() });
   };
 
-  // Выбор номера страницы
   const handleChangeSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     dispatch(currentPageAction(+value));
   };
-  // Выбор сортировки
+
   const handleChangeSelectSortStatus = (event: ChangeEvent<HTMLSelectElement>): void => {
     const { value } = event.target;
     setSortStatus(value);
@@ -56,7 +64,7 @@ const Form = (): JSX.Element => {
     const { value } = event.target;
     setSortGender(value);
   };
-  // Загрузка страницы
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
     setIsLoading(true);
