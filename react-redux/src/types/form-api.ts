@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
-
 type Info = {
   count: number;
   pages: number;
@@ -58,13 +56,7 @@ export interface GetApiData {
 }
 
 export type SetFormValuesProps = {
-  dataApi: GetApiData | null;
-  onSetDataApi: Dispatch<SetStateAction<GetApiData | null>>;
   onGetResource: (url: string) => Promise<void>;
-};
-
-export type TableProps = {
-  dataApi: GetApiData | null;
 };
 
 export enum ApiItem {

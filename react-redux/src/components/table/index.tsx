@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
-import { ApiItem, TableProps } from '../../types/form-api';
+import { ApiItem } from '../../types/form-api';
 
-const Table = ({ dataApi }: TableProps): JSX.Element => {
+const Table = (): JSX.Element => {
   const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
   const { isSearchResultsTableView } = useTypeSelector(state => state.isSearchResultsTableView);
+  const { dataApi } = useTypeSelector(state => state.dataApi);
 
   const resultHeaderTable = (value: string): JSX.Element => {
     if (value === ApiItem.CHARACTER) {

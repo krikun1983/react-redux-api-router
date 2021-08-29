@@ -5,14 +5,16 @@ import uuid from 'react-uuid';
 import { BASE_URL, PARAM_PAGE } from '../../constants/api';
 import useTypeSelector from '../../store/hooks/useTypeSelector';
 import { CurrentPageActionType } from '../../store/types/currentPage';
+import { DataApiActionTypes } from '../../store/types/dataApi';
 import { SearchResultsTableViewActionTypes } from '../../store/types/searchResultsTableView';
 import { ApiItem, SetFormValuesProps } from '../../types/form-api';
 
-const Form = ({ dataApi, onSetDataApi, onGetResource }: SetFormValuesProps): JSX.Element => {
+const Form = ({ onGetResource }: SetFormValuesProps): JSX.Element => {
   const dispatch = useDispatch();
   const { searchCategoryRadioValue } = useTypeSelector(state => state.searchCategoryRadioValue);
   const { currentPage } = useTypeSelector(state => state.currentPage);
   const { isSearchFieldNameError } = useTypeSelector(state => state.isSearchFieldNameError);
+  const { dataApi } = useTypeSelector(state => state.dataApi);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>('');
@@ -33,7 +35,7 @@ const Form = ({ dataApi, onSetDataApi, onGetResource }: SetFormValuesProps): JSX
   const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
 
-    onSetDataApi(null);
+    dispatch({ type: DataApiActionTypes.LOADING, payload: null });
     dispatch({ type: CurrentPageActionType.CURRENT, payload: 1 });
     dispatch({ type: SearchResultsTableViewActionTypes.CLOSE });
     dispatch({ type: value.toUpperCase() });

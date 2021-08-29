@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import currentPageReducer from './currentPageReducer';
+import dataApiReducer from './dataApiReducer';
 import detailsPageReducer from './detailsPageReducer';
 import searchCategoryRadioValueReducer from './searchCategoryRadioValueReducer';
 import searchFieldNameErrorReducer from './searchFieldNameErrorReducer';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   detailsPhoto: detailsPageReducer,
   detailsTitle: detailsPageReducer,
   detailsInfo: detailsPageReducer,
+  dataApi: dataApiReducer,
 });
 
 export default rootReducer;
