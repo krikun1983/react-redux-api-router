@@ -16,7 +16,7 @@ const Header = (): JSX.Element => {
 
   return (
     <header>
-      <h1 className="heading">Task React. API</h1>
+      <h1 className="heading">Task React. Redux</h1>
       <nav className="nav-menu">
         <ul className="nav-menu__list">
           <li className="nav-menu__item">
