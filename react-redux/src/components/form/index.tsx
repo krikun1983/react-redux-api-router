@@ -175,10 +175,12 @@ const Form = (): JSX.Element => {
         </fieldset>
         <fieldset className="form__service">
           <legend>Chose a page and click search</legend>
-          <select onChange={handleChangeSelect} value={+currentPage}>
-            <option value="">{currentPage}</option>
-            {select()}
-          </select>
+          <label htmlFor="page" className="form__select_span">
+            <select id="page" className="form__select" onChange={handleChangeSelect} value={+currentPage}>
+              <option value="">{currentPage}</option>
+              {select()}
+            </select>
+          </label>
         </fieldset>
         {searchCategoryRadioValue === ApiItem.CHARACTER ? (
           <fieldset className="form__service">
@@ -186,7 +188,7 @@ const Form = (): JSX.Element => {
             <div className="form__service_sort">
               <label htmlFor="status">
                 Status
-                <select id="status" onChange={handleChangeSelectSortStatus} value={sortStatus}>
+                <select className="form__select" id="status" onChange={handleChangeSelectSortStatus} value={sortStatus}>
                   <option value="">Selected</option>
                   <option value="alive">alive</option>
                   <option value="dead">dead</option>
@@ -195,7 +197,7 @@ const Form = (): JSX.Element => {
               </label>
               <label htmlFor="gender">
                 Gender
-                <select id="gender" onChange={handleChangeSelectSortGender} value={sortGender}>
+                <select className="form__select" id="gender" onChange={handleChangeSelectSortGender} value={sortGender}>
                   <option value="">Selected</option>
                   <option value="female">female</option>
                   <option value="male">male</option>
